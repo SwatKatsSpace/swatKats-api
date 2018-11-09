@@ -1,5 +1,6 @@
 package com.resources;
 
+import com.dao.UserDAO;
 import com.model.User;
 import com.services.UserService;
 import org.slf4j.Logger;
@@ -14,6 +15,12 @@ import javax.ws.rs.core.MediaType;
 @Produces(MediaType.APPLICATION_JSON)
 public class UserResource {
     public static final Logger LOGGER = LoggerFactory.getLogger(UserResource.class);
+
+    private final UserDAO dao;
+
+    public UserResource(UserDAO dao) {
+        this.dao = dao;
+    }
 
     @Path("/user")
     @GET

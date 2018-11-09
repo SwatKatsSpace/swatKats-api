@@ -16,9 +16,11 @@ repositories {
 dependencies {
     compile group: 'io.dropwizard', name: 'dropwizard-core', version: dropwizardVersion
     compile group: 'io.dropwizard', name: 'dropwizard-db', version: dropwizardVersion
+    compile group: 'io.dropwizard', name: 'dropwizard-jdbi3', version: dropwizardVersion
     compile group: 'org.immutables', name: 'value', version: immutables
     compile group: 'org.immutables', name: 'builder', version: immutables
     compile group: 'org.glassfish.hk2', name: 'hk2-core', version: hk2
+    compile group: 'org.postgresql', name: 'postgresql', version: '42.2.5'
 }
 
 mainClassName = "com.SwatKatsApplication"
