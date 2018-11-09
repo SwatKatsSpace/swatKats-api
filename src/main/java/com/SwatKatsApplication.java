@@ -17,6 +17,6 @@ public class SwatKatsApplication extends Application<SwatKatsConfiguration> {
     public void run(final SwatKatsConfiguration configuration, final Environment environment) throws Exception {
         LOGGER.info("Application name: {}", configuration.getAppName());
 
-        environment.jersey().register(new UserResource("hello", "hello"));
+        environment.jersey().register(new UserResource());
     }
 }
