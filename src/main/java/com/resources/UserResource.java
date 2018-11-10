@@ -1,7 +1,10 @@
 package com.resources;
 
 import com.dao.UserDAO;
+import com.dao.UserDetailsDAO;
+import com.mapper.UserDetailsMapper;
 import com.model.User;
+import com.model.UserDetails;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,30 +18,32 @@ import javax.ws.rs.core.MediaType;
 public class UserResource {
     public static final Logger LOGGER = LoggerFactory.getLogger(UserResource.class);
 
-    private final UserDAO dao;
+    private final UserDAO userDAO;
+    private final UserDetailsDAO userDetailsDAO;
 
-    public UserResource(UserDAO dao) {
-        this.dao = dao;
+    public UserResource(UserDAO userDAO, UserDetailsDAO userDetailsDAO) {
+        this.userDAO = userDAO;
+        this.userDetailsDAO = userDetailsDAO;
     }
 
     @Path("/user")
     @GET
     public Integer insertUser() {
-        LOGGER.info("getting user info");
-        return dao.insert("2", "jay", "jvs@gmail.com", "0001110011", "0011001100111");
+        //LOGGER.info("getting user info");
+        return userDAO.insert("jay", "jvs@gmail.com", "0001110011", "12345","0011001100111", "123456");
     }
 
-    @Path("/create/user")
+    /*@Path("/create/user")
     @GET
     public Integer createUserTable() {
         LOGGER.info("Creating users table");
         return dao.create();
-    }
+    }*/
 
     @Path("/get/user")
     @GET
     public User getUser() {
-        User user = dao.findByName("%jay%");
+        User user = userDAO.findByName("%jay%");
         return user;
     }
 

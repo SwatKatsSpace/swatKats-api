@@ -25,7 +25,6 @@ import org.immutables.value.Generated;
 @Generated(from = "ArticleDetails", generator = "Immutables")
 @SuppressWarnings({"all"})
 @ParametersAreNonnullByDefault
-@javax.annotation.processing.Generated("org.immutables.processor.ProxyProcessor")
 @Immutable
 @CheckReturnValue
 public final class ImmutableArticleDetails implements ArticleDetails {

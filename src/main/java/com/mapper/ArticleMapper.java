@@ -1,22 +1,22 @@
 package com.mapper;
 
-import com.model.immutables.ImmutableUser;
+import com.model.immutables.ImmutableArticle;
 import org.jdbi.v3.core.mapper.RowMapper;
 import org.jdbi.v3.core.statement.StatementContext;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class UserMapper implements RowMapper<ImmutableUser> {
+public class ArticleMapper implements RowMapper<ImmutableArticle> {
 
     @Override
-    public ImmutableUser map(ResultSet rs, StatementContext ctx) throws SQLException {
-        return  ImmutableUser.builder()
-                .name(rs.getString("name"))
+    public ImmutableArticle map(ResultSet rs, StatementContext ctx) throws SQLException {
+        return ImmutableArticle.builder()
                 .aadharId(rs.getString("aadhar_id"))
                 .email(rs.getString("email"))
-                .phone(rs.getString("phone"))
+                .name(rs.getString("name"))
                 .panId(rs.getString("pan_id"))
+                .phone(rs.getString("phone"))
                 .build();
     }
 }

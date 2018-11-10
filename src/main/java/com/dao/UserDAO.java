@@ -11,12 +11,28 @@ import org.jdbi.v3.sqlobject.statement.SqlUpdate;
 @RegisterRowMapper(UserMapper.class)
 public interface UserDAO {
 
-    @SqlUpdate("CREATE TABLE Users (Name text, Email text, Phone text, AadharId text, Id text)")
-    Integer create();
+    /*@SqlUpdate("CREATE TABLE Users (Name text, Email text, Phone text, AadharId text, Id text)")
+    Integer create();*/
 
-    @SqlUpdate("insert into Users (Id, Name, Email, Phone, AadharId) values (:id, :name, :email, :phone, :aadharId)")
-    Integer insert(@Bind("id") String id, @Bind("name") String name, @Bind("email") String email, @Bind("phone") String phone, @Bind("aadharId") String aadharId);
+    @SqlUpdate("insert into users (name, email, phone, password, aadhar_id, pan_id) values (:name, :email, :phone, :password, :aadharId, :panId)")
+    Integer insert(@Bind("name") String name, @Bind("email") String email, @Bind("phone") String phone, @Bind("password") String password, @Bind("aadharId") String aadharId, @Bind("panId") String panId);
 
-    @SqlQuery("select * from Users where Name like :name")
+    @SqlQuery("select * from users where name like :name")
     ImmutableUser findByName(@Bind("name") String name);
+
+    @SqlQuery("select * from users where name = :email")
+    ImmutableUser findByEmail(@Bind("email") String email);
+
+    @SqlQuery("select * from users where aadhar_id = :aadharId")
+    ImmutableUser findByAadharId(@Bind("aadharId") String aadharId);
+
+    @SqlQuery("select * from users where pan_id = :panId")
+    ImmutableUser findByPanId(@Bind("panId") String panId);
+
+    @SqlQuery("select * from users where phone = :phone")
+    ImmutableUser findByPhone(@Bind("phone") String phone);
+
+    @SqlQuery("select * from users where uuid = :uuid")
+    ImmutableUser findId(@Bind("uuid") String uuid);
+
 }
