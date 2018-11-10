@@ -3,20 +3,20 @@ package com.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.immutables.value.Value;
 
-import java.util.Optional;
-
 //@Value.Immutable
-public interface User {
+public interface ArticleDetails {
     @JsonProperty
-    String name();
+    String[] photo();
+
     @JsonProperty
-    String email();
+    String lat();
+
     @JsonProperty
-    Optional<String> phone();
+    String lng();
+
     @JsonProperty
-    String password();
+    Object address();
+
     @JsonProperty
-    String aadharId();
-    @JsonProperty
-    String panId();
+    Object info();
 }

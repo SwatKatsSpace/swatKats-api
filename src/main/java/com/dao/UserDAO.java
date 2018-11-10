@@ -1,12 +1,9 @@
 package com.dao;
 
 import com.mapper.UserMapper;
-import com.model.ImmutableUser;
-import com.model.User;
-import org.jdbi.v3.sqlobject.config.RegisterColumnMapper;
+import com.model.immutables.ImmutableUser;
 import org.jdbi.v3.sqlobject.config.RegisterRowMapper;
 import org.jdbi.v3.sqlobject.customizer.Bind;
-import org.jdbi.v3.sqlobject.customizer.BindBean;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
 import org.jdbi.v3.sqlobject.statement.SqlUpdate;
 

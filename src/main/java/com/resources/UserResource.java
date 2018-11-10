@@ -1,9 +1,7 @@
 package com.resources;
 
 import com.dao.UserDAO;
-import com.model.ImmutableUser;
 import com.model.User;
-import com.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

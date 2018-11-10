@@ -1,6 +1,6 @@
 package com.mapper;
 
-import com.model.ImmutableUser;
+import com.model.immutables.ImmutableUser;
 import org.jdbi.v3.core.mapper.RowMapper;
 import org.jdbi.v3.core.statement.StatementContext;
 
