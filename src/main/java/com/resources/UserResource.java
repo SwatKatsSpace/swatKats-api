@@ -1,6 +1,7 @@
 package com.resources;
 
 import com.dao.UserDAO;
+import com.model.ImmutableUser;
 import com.model.User;
 import com.services.UserService;
 import org.slf4j.Logger;
@@ -24,9 +25,23 @@ public class UserResource {
 
     @Path("/user")
     @GET
-    public User getUser() {
+    public Integer insertUser() {
         LOGGER.info("getting user info");
-        UserService.getUser();
-        return UserService.getUser();
+        return dao.insert("2", "jay", "jvs@gmail.com", "0001110011", "0011001100111");
     }
+
+    @Path("/create/user")
+    @GET
+    public Integer createUserTable() {
+        LOGGER.info("Creating users table");
+        return dao.create();
+    }
+
+    @Path("/get/user")
+    @GET
+    public User getUser() {
+        User user = dao.findByName("%jay%");
+        return user;
+    }
+
 }

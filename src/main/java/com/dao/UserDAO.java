@@ -14,9 +14,12 @@ import org.jdbi.v3.sqlobject.statement.SqlUpdate;
 @RegisterRowMapper(UserMapper.class)
 public interface UserDAO {
 
-    @SqlUpdate("insert into user (id, name, email, phone, aadharId) values (:id, :name, :email, :phone, :aadharId)")
-    Integer insert(@Bind("id") String id, @Bind("name") String name, @Bind("phone") String phone, @Bind("aadharId") String aadharId);
+    @SqlUpdate("CREATE TABLE Users (Name text, Email text, Phone text, AadharId text, Id text)")
+    Integer create();
 
-    @SqlQuery("select ImmutableUser from user where name like %:name%")
-    User findByName(@Bind("name") String name);
+    @SqlUpdate("insert into Users (Id, Name, Email, Phone, AadharId) values (:id, :name, :email, :phone, :aadharId)")
+    Integer insert(@Bind("id") String id, @Bind("name") String name, @Bind("email") String email, @Bind("phone") String phone, @Bind("aadharId") String aadharId);
+
+    @SqlQuery("select * from Users where Name like :name")
+    ImmutableUser findByName(@Bind("name") String name);
 }
