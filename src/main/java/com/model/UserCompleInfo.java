@@ -3,14 +3,10 @@ package com.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.immutables.value.Value;
 
-//@Value.Immutable
-public interface UserDetails {
+@Value.Immutable
+public interface UserCompleInfo {
     @JsonProperty
-    String uuid();
-
+    User user();
     @JsonProperty
-    Object address();
-
-    @JsonProperty
-    Object info();
+    UserDetails userDetails();
 }

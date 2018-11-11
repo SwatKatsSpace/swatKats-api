@@ -32,4 +32,7 @@ public interface ArticleDAO {
 
     @SqlQuery("select * from article where uuid = :uuid")
     ImmutableArticle findId(@Bind("uuid") String uuid);
+
+    @SqlQuery("select * from article")
+    ImmutableArticle getAll();
 }

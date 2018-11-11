@@ -6,6 +6,9 @@ import org.immutables.value.Value;
 //@Value.Immutable
 public interface ArticleDetails {
     @JsonProperty
+    String uuid();
+
+    @JsonProperty
     String[] photo();
 
     @JsonProperty

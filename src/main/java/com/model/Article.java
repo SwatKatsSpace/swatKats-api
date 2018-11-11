@@ -9,6 +9,9 @@ import java.util.Optional;
 //@Value.Immutable
 public interface Article {
     @JsonProperty
+    String uuid();
+
+    @JsonProperty
     String name();
     @JsonProperty
     String email();

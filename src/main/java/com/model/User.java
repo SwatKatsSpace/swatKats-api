@@ -8,6 +8,8 @@ import java.util.Optional;
 //@Value.Immutable
 public interface User {
     @JsonProperty
+    String uuid();
+    @JsonProperty
     String name();
     @JsonProperty
     String email();

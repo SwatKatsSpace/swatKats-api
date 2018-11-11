@@ -38,7 +38,7 @@ public class ArticleResource {
     @Path("/get")
     @GET
     public Article getUser() {
-        Article article = articleDAO.findByName("%jay%");
+        Article article = articleDAO.getAll();
         return article;
     }
 }

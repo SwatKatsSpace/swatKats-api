@@ -7,6 +7,8 @@ import org.jdbi.v3.sqlobject.customizer.Bind;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
 import org.jdbi.v3.sqlobject.statement.SqlUpdate;
 
+import java.util.List;
+
 
 @RegisterRowMapper(UserMapper.class)
 public interface UserDAO {
@@ -29,10 +31,13 @@ public interface UserDAO {
     @SqlQuery("select * from users where pan_id = :panId")
     ImmutableUser findByPanId(@Bind("panId") String panId);
 
+    @SqlQuery("select * from users where uuid = :uuid")
+    ImmutableUser findId(@Bind("uuid") String uuid);
+
     @SqlQuery("select * from users where phone = :phone")
     ImmutableUser findByPhone(@Bind("phone") String phone);
 
-    @SqlQuery("select * from users where uuid = :uuid")
-    ImmutableUser findId(@Bind("uuid") String uuid);
+    @SqlQuery("select * from users")
+    List<ImmutableUser> getAll();
 
 }
