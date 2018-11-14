@@ -24,15 +24,26 @@ import org.immutables.value.Generated;
 @Generated(from = "UserDetails", generator = "Immutables")
 @SuppressWarnings({"all"})
 @ParametersAreNonnullByDefault
+@javax.annotation.Generated("org.immutables.processor.ProxyProcessor")
 @Immutable
 @CheckReturnValue
 public final class ImmutableUserDetails implements UserDetails {
+  private final String uuid;
   private final Object address;
   private final Object info;
 
-  private ImmutableUserDetails(Object address, Object info) {
+  private ImmutableUserDetails(String uuid, Object address, Object info) {
+    this.uuid = uuid;
     this.address = address;
     this.info = info;
+  }
+
+  /**
+   * @return The value of the {@code uuid} attribute
+   */
+  @Override
+  public String uuid() {
+    return uuid;
   }
 
   /**
@@ -52,6 +63,18 @@ public final class ImmutableUserDetails implements UserDetails {
   }
 
   /**
+   * Copy the current immutable object by setting a value for the {@link UserDetails#uuid() uuid} attribute.
+   * An equals check used to prevent copying of the same value by returning {@code this}.
+   * @param value A new value for uuid
+   * @return A modified copy of the {@code this} object
+   */
+  public final ImmutableUserDetails withUuid(String value) {
+    String newValue = Objects.requireNonNull(value, "uuid");
+    if (this.uuid.equals(newValue)) return this;
+    return new ImmutableUserDetails(newValue, this.address, this.info);
+  }
+
+  /**
    * Copy the current immutable object by setting a value for the {@link UserDetails#address() address} attribute.
    * A shallow reference equality check is used to prevent copying of the same value by returning {@code this}.
    * @param value A new value for address
@@ -60,7 +83,7 @@ public final class ImmutableUserDetails implements UserDetails {
   public final ImmutableUserDetails withAddress(Object value) {
     if (this.address == value) return this;
     Object newValue = Objects.requireNonNull(value, "address");
-    return new ImmutableUserDetails(newValue, this.info);
+    return new ImmutableUserDetails(this.uuid, newValue, this.info);
   }
 
   /**
@@ -72,7 +95,7 @@ public final class ImmutableUserDetails implements UserDetails {
   public final ImmutableUserDetails withInfo(Object value) {
     if (this.info == value) return this;
     Object newValue = Objects.requireNonNull(value, "info");
-    return new ImmutableUserDetails(this.address, newValue);
+    return new ImmutableUserDetails(this.uuid, this.address, newValue);
   }
 
   /**
@@ -87,17 +110,19 @@ public final class ImmutableUserDetails implements UserDetails {
   }
 
   private boolean equalTo(ImmutableUserDetails another) {
-    return address.equals(another.address)
+    return uuid.equals(another.uuid)
+        && address.equals(another.address)
         && info.equals(another.info);
   }
 
   /**
-   * Computes a hash code from attributes: {@code address}, {@code info}.
+   * Computes a hash code from attributes: {@code uuid}, {@code address}, {@code info}.
    * @return hashCode value
    */
   @Override
   public int hashCode() {
     @Var int h = 5381;
+    h += (h << 5) + uuid.hashCode();
     h += (h << 5) + address.hashCode();
     h += (h << 5) + info.hashCode();
     return h;
@@ -111,6 +136,7 @@ public final class ImmutableUserDetails implements UserDetails {
   public String toString() {
     return MoreObjects.toStringHelper("UserDetails")
         .omitNullValues()
+        .add("uuid", uuid)
         .add("address", address)
         .add("info", info)
         .toString();
@@ -136,8 +162,8 @@ public final class ImmutableUserDetails implements UserDetails {
    * Creates a builder for {@link ImmutableUserDetails ImmutableUserDetails}.
    * @return A new ImmutableUserDetails builder
    */
-  public static Builder builder() {
-    return new Builder();
+  public static ImmutableUserDetails.Builder builder() {
+    return new ImmutableUserDetails.Builder();
   }
 
   /**
@@ -150,10 +176,12 @@ public final class ImmutableUserDetails implements UserDetails {
   @Generated(from = "UserDetails", generator = "Immutables")
   @NotThreadSafe
   public static final class Builder {
-    private static final long INIT_BIT_ADDRESS = 0x1L;
-    private static final long INIT_BIT_INFO = 0x2L;
-    private long initBits = 0x3L;
+    private static final long INIT_BIT_UUID = 0x1L;
+    private static final long INIT_BIT_ADDRESS = 0x2L;
+    private static final long INIT_BIT_INFO = 0x4L;
+    private long initBits = 0x7L;
 
+    private @Nullable String uuid;
     private @Nullable Object address;
     private @Nullable Object info;
 
@@ -170,8 +198,21 @@ public final class ImmutableUserDetails implements UserDetails {
     @CanIgnoreReturnValue 
     public final Builder from(UserDetails instance) {
       Objects.requireNonNull(instance, "instance");
+      uuid(instance.uuid());
       address(instance.address());
       info(instance.info());
+      return this;
+    }
+
+    /**
+     * Initializes the value for the {@link UserDetails#uuid() uuid} attribute.
+     * @param uuid The value for uuid 
+     * @return {@code this} builder for use in a chained invocation
+     */
+    @CanIgnoreReturnValue 
+    public final Builder uuid(String uuid) {
+      this.uuid = Objects.requireNonNull(uuid, "uuid");
+      initBits &= ~INIT_BIT_UUID;
       return this;
     }
 
@@ -202,17 +243,18 @@ public final class ImmutableUserDetails implements UserDetails {
     /**
      * Builds a new {@link ImmutableUserDetails ImmutableUserDetails}.
      * @return An immutable instance of UserDetails
-     * @throws IllegalStateException if any required attributes are missing
+     * @throws java.lang.IllegalStateException if any required attributes are missing
      */
     public ImmutableUserDetails build() {
       if (initBits != 0) {
         throw new IllegalStateException(formatRequiredAttributesMessage());
       }
-      return new ImmutableUserDetails(address, info);
+      return new ImmutableUserDetails(uuid, address, info);
     }
 
     private String formatRequiredAttributesMessage() {
       List<String> attributes = new ArrayList<>();
+      if ((initBits & INIT_BIT_UUID) != 0) attributes.add("uuid");
       if ((initBits & INIT_BIT_ADDRESS) != 0) attributes.add("address");
       if ((initBits & INIT_BIT_INFO) != 0) attributes.add("info");
       return "Cannot build UserDetails, some of required attributes are not set " + attributes;

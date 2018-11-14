@@ -1,6 +1,5 @@
 package com.mapper;
 
-import com.model.immutables.ImmutableArticle;
 import com.model.immutables.ImmutableArticleDetails;
 import org.jdbi.v3.core.mapper.RowMapper;
 import org.jdbi.v3.core.statement.StatementContext;

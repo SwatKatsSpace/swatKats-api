@@ -25,17 +25,32 @@ import org.immutables.value.Generated;
 @Generated(from = "ArticleMetadata", generator = "Immutables")
 @SuppressWarnings({"all"})
 @ParametersAreNonnullByDefault
+@javax.annotation.Generated("org.immutables.processor.ProxyProcessor")
 @Immutable
 @CheckReturnValue
 public final class ImmutableArticleMetadata implements ArticleMetadata {
+  private final String uuid;
   private final String description;
   private final String category;
   private final String[] tags;
 
-  private ImmutableArticleMetadata(String description, String category, String[] tags) {
+  private ImmutableArticleMetadata(
+      String uuid,
+      String description,
+      String category,
+      String[] tags) {
+    this.uuid = uuid;
     this.description = description;
     this.category = category;
     this.tags = tags;
+  }
+
+  /**
+   * @return The value of the {@code uuid} attribute
+   */
+  @Override
+  public String uuid() {
+    return uuid;
   }
 
   /**
@@ -63,6 +78,18 @@ public final class ImmutableArticleMetadata implements ArticleMetadata {
   }
 
   /**
+   * Copy the current immutable object by setting a value for the {@link ArticleMetadata#uuid() uuid} attribute.
+   * An equals check used to prevent copying of the same value by returning {@code this}.
+   * @param value A new value for uuid
+   * @return A modified copy of the {@code this} object
+   */
+  public final ImmutableArticleMetadata withUuid(String value) {
+    String newValue = Objects.requireNonNull(value, "uuid");
+    if (this.uuid.equals(newValue)) return this;
+    return new ImmutableArticleMetadata(newValue, this.description, this.category, this.tags);
+  }
+
+  /**
    * Copy the current immutable object by setting a value for the {@link ArticleMetadata#description() description} attribute.
    * An equals check used to prevent copying of the same value by returning {@code this}.
    * @param value A new value for description
@@ -71,7 +98,7 @@ public final class ImmutableArticleMetadata implements ArticleMetadata {
   public final ImmutableArticleMetadata withDescription(String value) {
     String newValue = Objects.requireNonNull(value, "description");
     if (this.description.equals(newValue)) return this;
-    return new ImmutableArticleMetadata(newValue, this.category, this.tags);
+    return new ImmutableArticleMetadata(this.uuid, newValue, this.category, this.tags);
   }
 
   /**
@@ -83,7 +110,7 @@ public final class ImmutableArticleMetadata implements ArticleMetadata {
   public final ImmutableArticleMetadata withCategory(String value) {
     String newValue = Objects.requireNonNull(value, "category");
     if (this.category.equals(newValue)) return this;
-    return new ImmutableArticleMetadata(this.description, newValue, this.tags);
+    return new ImmutableArticleMetadata(this.uuid, this.description, newValue, this.tags);
   }
 
   /**
@@ -94,7 +121,7 @@ public final class ImmutableArticleMetadata implements ArticleMetadata {
    */
   public final ImmutableArticleMetadata withTags(String... elements) {
     String[] newValue = elements.clone();
-    return new ImmutableArticleMetadata(this.description, this.category, newValue);
+    return new ImmutableArticleMetadata(this.uuid, this.description, this.category, newValue);
   }
 
   /**
@@ -109,18 +136,20 @@ public final class ImmutableArticleMetadata implements ArticleMetadata {
   }
 
   private boolean equalTo(ImmutableArticleMetadata another) {
-    return description.equals(another.description)
+    return uuid.equals(another.uuid)
+        && description.equals(another.description)
         && category.equals(another.category)
         && Arrays.equals(tags, another.tags);
   }
 
   /**
-   * Computes a hash code from attributes: {@code description}, {@code category}, {@code tags}.
+   * Computes a hash code from attributes: {@code uuid}, {@code description}, {@code category}, {@code tags}.
    * @return hashCode value
    */
   @Override
   public int hashCode() {
     @Var int h = 5381;
+    h += (h << 5) + uuid.hashCode();
     h += (h << 5) + description.hashCode();
     h += (h << 5) + category.hashCode();
     h += (h << 5) + Arrays.hashCode(tags);
@@ -135,6 +164,7 @@ public final class ImmutableArticleMetadata implements ArticleMetadata {
   public String toString() {
     return MoreObjects.toStringHelper("ArticleMetadata")
         .omitNullValues()
+        .add("uuid", uuid)
         .add("description", description)
         .add("category", category)
         .add("tags", Arrays.toString(tags))
@@ -175,11 +205,13 @@ public final class ImmutableArticleMetadata implements ArticleMetadata {
   @Generated(from = "ArticleMetadata", generator = "Immutables")
   @NotThreadSafe
   public static final class Builder {
-    private static final long INIT_BIT_DESCRIPTION = 0x1L;
-    private static final long INIT_BIT_CATEGORY = 0x2L;
-    private static final long INIT_BIT_TAGS = 0x4L;
-    private long initBits = 0x7L;
+    private static final long INIT_BIT_UUID = 0x1L;
+    private static final long INIT_BIT_DESCRIPTION = 0x2L;
+    private static final long INIT_BIT_CATEGORY = 0x4L;
+    private static final long INIT_BIT_TAGS = 0x8L;
+    private long initBits = 0xfL;
 
+    private @Nullable String uuid;
     private @Nullable String description;
     private @Nullable String category;
     private @Nullable String[] tags;
@@ -197,9 +229,22 @@ public final class ImmutableArticleMetadata implements ArticleMetadata {
     @CanIgnoreReturnValue 
     public final Builder from(ArticleMetadata instance) {
       Objects.requireNonNull(instance, "instance");
+      uuid(instance.uuid());
       description(instance.description());
       category(instance.category());
       tags(instance.tags());
+      return this;
+    }
+
+    /**
+     * Initializes the value for the {@link ArticleMetadata#uuid() uuid} attribute.
+     * @param uuid The value for uuid 
+     * @return {@code this} builder for use in a chained invocation
+     */
+    @CanIgnoreReturnValue 
+    public final Builder uuid(String uuid) {
+      this.uuid = Objects.requireNonNull(uuid, "uuid");
+      initBits &= ~INIT_BIT_UUID;
       return this;
     }
 
@@ -248,11 +293,12 @@ public final class ImmutableArticleMetadata implements ArticleMetadata {
       if (initBits != 0) {
         throw new IllegalStateException(formatRequiredAttributesMessage());
       }
-      return new ImmutableArticleMetadata(description, category, tags);
+      return new ImmutableArticleMetadata(uuid, description, category, tags);
     }
 
     private String formatRequiredAttributesMessage() {
       List<String> attributes = new ArrayList<>();
+      if ((initBits & INIT_BIT_UUID) != 0) attributes.add("uuid");
       if ((initBits & INIT_BIT_DESCRIPTION) != 0) attributes.add("description");
       if ((initBits & INIT_BIT_CATEGORY) != 0) attributes.add("category");
       if ((initBits & INIT_BIT_TAGS) != 0) attributes.add("tags");

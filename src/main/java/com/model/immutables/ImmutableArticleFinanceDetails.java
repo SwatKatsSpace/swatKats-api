@@ -24,23 +24,35 @@ import org.immutables.value.Generated;
 @Generated(from = "ArticleFinanceDetails", generator = "Immutables")
 @SuppressWarnings({"all"})
 @ParametersAreNonnullByDefault
+@javax.annotation.Generated("org.immutables.processor.ProxyProcessor")
 @Immutable
 @CheckReturnValue
 public final class ImmutableArticleFinanceDetails implements ArticleFinanceDetails {
+  private final String uuid;
   private final String bankAccountNumber;
   private final String ifscCode;
   private final String bankName;
   private final String nameOnAccount;
 
   private ImmutableArticleFinanceDetails(
+      String uuid,
       String bankAccountNumber,
       String ifscCode,
       String bankName,
       String nameOnAccount) {
+    this.uuid = uuid;
     this.bankAccountNumber = bankAccountNumber;
     this.ifscCode = ifscCode;
     this.bankName = bankName;
     this.nameOnAccount = nameOnAccount;
+  }
+
+  /**
+   * @return The value of the {@code uuid} attribute
+   */
+  @Override
+  public String uuid() {
+    return uuid;
   }
 
   /**
@@ -76,6 +88,18 @@ public final class ImmutableArticleFinanceDetails implements ArticleFinanceDetai
   }
 
   /**
+   * Copy the current immutable object by setting a value for the {@link ArticleFinanceDetails#uuid() uuid} attribute.
+   * An equals check used to prevent copying of the same value by returning {@code this}.
+   * @param value A new value for uuid
+   * @return A modified copy of the {@code this} object
+   */
+  public final ImmutableArticleFinanceDetails withUuid(String value) {
+    String newValue = Objects.requireNonNull(value, "uuid");
+    if (this.uuid.equals(newValue)) return this;
+    return new ImmutableArticleFinanceDetails(newValue, this.bankAccountNumber, this.ifscCode, this.bankName, this.nameOnAccount);
+  }
+
+  /**
    * Copy the current immutable object by setting a value for the {@link ArticleFinanceDetails#bankAccountNumber() bankAccountNumber} attribute.
    * An equals check used to prevent copying of the same value by returning {@code this}.
    * @param value A new value for bankAccountNumber
@@ -84,7 +108,7 @@ public final class ImmutableArticleFinanceDetails implements ArticleFinanceDetai
   public final ImmutableArticleFinanceDetails withBankAccountNumber(String value) {
     String newValue = Objects.requireNonNull(value, "bankAccountNumber");
     if (this.bankAccountNumber.equals(newValue)) return this;
-    return new ImmutableArticleFinanceDetails(newValue, this.ifscCode, this.bankName, this.nameOnAccount);
+    return new ImmutableArticleFinanceDetails(this.uuid, newValue, this.ifscCode, this.bankName, this.nameOnAccount);
   }
 
   /**
@@ -96,7 +120,7 @@ public final class ImmutableArticleFinanceDetails implements ArticleFinanceDetai
   public final ImmutableArticleFinanceDetails withIfscCode(String value) {
     String newValue = Objects.requireNonNull(value, "ifscCode");
     if (this.ifscCode.equals(newValue)) return this;
-    return new ImmutableArticleFinanceDetails(this.bankAccountNumber, newValue, this.bankName, this.nameOnAccount);
+    return new ImmutableArticleFinanceDetails(this.uuid, this.bankAccountNumber, newValue, this.bankName, this.nameOnAccount);
   }
 
   /**
@@ -108,7 +132,7 @@ public final class ImmutableArticleFinanceDetails implements ArticleFinanceDetai
   public final ImmutableArticleFinanceDetails withBankName(String value) {
     String newValue = Objects.requireNonNull(value, "bankName");
     if (this.bankName.equals(newValue)) return this;
-    return new ImmutableArticleFinanceDetails(this.bankAccountNumber, this.ifscCode, newValue, this.nameOnAccount);
+    return new ImmutableArticleFinanceDetails(this.uuid, this.bankAccountNumber, this.ifscCode, newValue, this.nameOnAccount);
   }
 
   /**
@@ -120,7 +144,7 @@ public final class ImmutableArticleFinanceDetails implements ArticleFinanceDetai
   public final ImmutableArticleFinanceDetails withNameOnAccount(String value) {
     String newValue = Objects.requireNonNull(value, "nameOnAccount");
     if (this.nameOnAccount.equals(newValue)) return this;
-    return new ImmutableArticleFinanceDetails(this.bankAccountNumber, this.ifscCode, this.bankName, newValue);
+    return new ImmutableArticleFinanceDetails(this.uuid, this.bankAccountNumber, this.ifscCode, this.bankName, newValue);
   }
 
   /**
@@ -135,19 +159,21 @@ public final class ImmutableArticleFinanceDetails implements ArticleFinanceDetai
   }
 
   private boolean equalTo(ImmutableArticleFinanceDetails another) {
-    return bankAccountNumber.equals(another.bankAccountNumber)
+    return uuid.equals(another.uuid)
+        && bankAccountNumber.equals(another.bankAccountNumber)
         && ifscCode.equals(another.ifscCode)
         && bankName.equals(another.bankName)
         && nameOnAccount.equals(another.nameOnAccount);
   }
 
   /**
-   * Computes a hash code from attributes: {@code bankAccountNumber}, {@code ifscCode}, {@code bankName}, {@code nameOnAccount}.
+   * Computes a hash code from attributes: {@code uuid}, {@code bankAccountNumber}, {@code ifscCode}, {@code bankName}, {@code nameOnAccount}.
    * @return hashCode value
    */
   @Override
   public int hashCode() {
     @Var int h = 5381;
+    h += (h << 5) + uuid.hashCode();
     h += (h << 5) + bankAccountNumber.hashCode();
     h += (h << 5) + ifscCode.hashCode();
     h += (h << 5) + bankName.hashCode();
@@ -163,6 +189,7 @@ public final class ImmutableArticleFinanceDetails implements ArticleFinanceDetai
   public String toString() {
     return MoreObjects.toStringHelper("ArticleFinanceDetails")
         .omitNullValues()
+        .add("uuid", uuid)
         .add("bankAccountNumber", bankAccountNumber)
         .add("ifscCode", ifscCode)
         .add("bankName", bankName)
@@ -204,12 +231,14 @@ public final class ImmutableArticleFinanceDetails implements ArticleFinanceDetai
   @Generated(from = "ArticleFinanceDetails", generator = "Immutables")
   @NotThreadSafe
   public static final class Builder {
-    private static final long INIT_BIT_BANK_ACCOUNT_NUMBER = 0x1L;
-    private static final long INIT_BIT_IFSC_CODE = 0x2L;
-    private static final long INIT_BIT_BANK_NAME = 0x4L;
-    private static final long INIT_BIT_NAME_ON_ACCOUNT = 0x8L;
-    private long initBits = 0xfL;
+    private static final long INIT_BIT_UUID = 0x1L;
+    private static final long INIT_BIT_BANK_ACCOUNT_NUMBER = 0x2L;
+    private static final long INIT_BIT_IFSC_CODE = 0x4L;
+    private static final long INIT_BIT_BANK_NAME = 0x8L;
+    private static final long INIT_BIT_NAME_ON_ACCOUNT = 0x10L;
+    private long initBits = 0x1fL;
 
+    private @Nullable String uuid;
     private @Nullable String bankAccountNumber;
     private @Nullable String ifscCode;
     private @Nullable String bankName;
@@ -228,10 +257,23 @@ public final class ImmutableArticleFinanceDetails implements ArticleFinanceDetai
     @CanIgnoreReturnValue 
     public final Builder from(ArticleFinanceDetails instance) {
       Objects.requireNonNull(instance, "instance");
+      uuid(instance.uuid());
       bankAccountNumber(instance.bankAccountNumber());
       ifscCode(instance.ifscCode());
       bankName(instance.bankName());
       nameOnAccount(instance.nameOnAccount());
+      return this;
+    }
+
+    /**
+     * Initializes the value for the {@link ArticleFinanceDetails#uuid() uuid} attribute.
+     * @param uuid The value for uuid 
+     * @return {@code this} builder for use in a chained invocation
+     */
+    @CanIgnoreReturnValue 
+    public final Builder uuid(String uuid) {
+      this.uuid = Objects.requireNonNull(uuid, "uuid");
+      initBits &= ~INIT_BIT_UUID;
       return this;
     }
 
@@ -292,11 +334,12 @@ public final class ImmutableArticleFinanceDetails implements ArticleFinanceDetai
       if (initBits != 0) {
         throw new IllegalStateException(formatRequiredAttributesMessage());
       }
-      return new ImmutableArticleFinanceDetails(bankAccountNumber, ifscCode, bankName, nameOnAccount);
+      return new ImmutableArticleFinanceDetails(uuid, bankAccountNumber, ifscCode, bankName, nameOnAccount);
     }
 
     private String formatRequiredAttributesMessage() {
       List<String> attributes = new ArrayList<>();
+      if ((initBits & INIT_BIT_UUID) != 0) attributes.add("uuid");
       if ((initBits & INIT_BIT_BANK_ACCOUNT_NUMBER) != 0) attributes.add("bankAccountNumber");
       if ((initBits & INIT_BIT_IFSC_CODE) != 0) attributes.add("ifscCode");
       if ((initBits & INIT_BIT_BANK_NAME) != 0) attributes.add("bankName");

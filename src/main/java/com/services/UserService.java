@@ -1,7 +1,7 @@
 package com.services;
 
-import com.model.immutables.ImmutableUser;
 import com.model.User;
+import com.model.immutables.ImmutableUser;
 
 public class UserService {
 

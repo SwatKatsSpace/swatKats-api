@@ -25,9 +25,11 @@ import org.immutables.value.Generated;
 @Generated(from = "Article", generator = "Immutables")
 @SuppressWarnings({"all"})
 @ParametersAreNonnullByDefault
+@javax.annotation.Generated("org.immutables.processor.ProxyProcessor")
 @Immutable
 @CheckReturnValue
 public final class ImmutableArticle implements Article {
+  private final String uuid;
   private final String name;
   private final String email;
   private final @Nullable String phone;
@@ -35,16 +37,26 @@ public final class ImmutableArticle implements Article {
   private final String panId;
 
   private ImmutableArticle(
+      String uuid,
       String name,
       String email,
       @Nullable String phone,
       String aadharId,
       String panId) {
+    this.uuid = uuid;
     this.name = name;
     this.email = email;
     this.phone = phone;
     this.aadharId = aadharId;
     this.panId = panId;
+  }
+
+  /**
+   * @return The value of the {@code uuid} attribute
+   */
+  @Override
+  public String uuid() {
+    return uuid;
   }
 
   /**
@@ -88,6 +100,18 @@ public final class ImmutableArticle implements Article {
   }
 
   /**
+   * Copy the current immutable object by setting a value for the {@link Article#uuid() uuid} attribute.
+   * An equals check used to prevent copying of the same value by returning {@code this}.
+   * @param value A new value for uuid
+   * @return A modified copy of the {@code this} object
+   */
+  public final ImmutableArticle withUuid(String value) {
+    String newValue = Objects.requireNonNull(value, "uuid");
+    if (this.uuid.equals(newValue)) return this;
+    return new ImmutableArticle(newValue, this.name, this.email, this.phone, this.aadharId, this.panId);
+  }
+
+  /**
    * Copy the current immutable object by setting a value for the {@link Article#name() name} attribute.
    * An equals check used to prevent copying of the same value by returning {@code this}.
    * @param value A new value for name
@@ -96,7 +120,7 @@ public final class ImmutableArticle implements Article {
   public final ImmutableArticle withName(String value) {
     String newValue = Objects.requireNonNull(value, "name");
     if (this.name.equals(newValue)) return this;
-    return new ImmutableArticle(newValue, this.email, this.phone, this.aadharId, this.panId);
+    return new ImmutableArticle(this.uuid, newValue, this.email, this.phone, this.aadharId, this.panId);
   }
 
   /**
@@ -108,7 +132,7 @@ public final class ImmutableArticle implements Article {
   public final ImmutableArticle withEmail(String value) {
     String newValue = Objects.requireNonNull(value, "email");
     if (this.email.equals(newValue)) return this;
-    return new ImmutableArticle(this.name, newValue, this.phone, this.aadharId, this.panId);
+    return new ImmutableArticle(this.uuid, this.name, newValue, this.phone, this.aadharId, this.panId);
   }
 
   /**
@@ -119,7 +143,7 @@ public final class ImmutableArticle implements Article {
   public final ImmutableArticle withPhone(String value) {
     @Nullable String newValue = Objects.requireNonNull(value, "phone");
     if (Objects.equals(this.phone, newValue)) return this;
-    return new ImmutableArticle(this.name, this.email, newValue, this.aadharId, this.panId);
+    return new ImmutableArticle(this.uuid, this.name, this.email, newValue, this.aadharId, this.panId);
   }
 
   /**
@@ -131,7 +155,7 @@ public final class ImmutableArticle implements Article {
   public final ImmutableArticle withPhone(Optional<String> optional) {
     @Nullable String value = optional.orElse(null);
     if (Objects.equals(this.phone, value)) return this;
-    return new ImmutableArticle(this.name, this.email, value, this.aadharId, this.panId);
+    return new ImmutableArticle(this.uuid, this.name, this.email, value, this.aadharId, this.panId);
   }
 
   /**
@@ -143,7 +167,7 @@ public final class ImmutableArticle implements Article {
   public final ImmutableArticle withAadharId(String value) {
     String newValue = Objects.requireNonNull(value, "aadharId");
     if (this.aadharId.equals(newValue)) return this;
-    return new ImmutableArticle(this.name, this.email, this.phone, newValue, this.panId);
+    return new ImmutableArticle(this.uuid, this.name, this.email, this.phone, newValue, this.panId);
   }
 
   /**
@@ -155,7 +179,7 @@ public final class ImmutableArticle implements Article {
   public final ImmutableArticle withPanId(String value) {
     String newValue = Objects.requireNonNull(value, "panId");
     if (this.panId.equals(newValue)) return this;
-    return new ImmutableArticle(this.name, this.email, this.phone, this.aadharId, newValue);
+    return new ImmutableArticle(this.uuid, this.name, this.email, this.phone, this.aadharId, newValue);
   }
 
   /**
@@ -170,7 +194,8 @@ public final class ImmutableArticle implements Article {
   }
 
   private boolean equalTo(ImmutableArticle another) {
-    return name.equals(another.name)
+    return uuid.equals(another.uuid)
+        && name.equals(another.name)
         && email.equals(another.email)
         && Objects.equals(phone, another.phone)
         && aadharId.equals(another.aadharId)
@@ -178,12 +203,13 @@ public final class ImmutableArticle implements Article {
   }
 
   /**
-   * Computes a hash code from attributes: {@code name}, {@code email}, {@code phone}, {@code aadharId}, {@code panId}.
+   * Computes a hash code from attributes: {@code uuid}, {@code name}, {@code email}, {@code phone}, {@code aadharId}, {@code panId}.
    * @return hashCode value
    */
   @Override
   public int hashCode() {
     @Var int h = 5381;
+    h += (h << 5) + uuid.hashCode();
     h += (h << 5) + name.hashCode();
     h += (h << 5) + email.hashCode();
     h += (h << 5) + Objects.hashCode(phone);
@@ -200,6 +226,7 @@ public final class ImmutableArticle implements Article {
   public String toString() {
     return MoreObjects.toStringHelper("Article")
         .omitNullValues()
+        .add("uuid", uuid)
         .add("name", name)
         .add("email", email)
         .add("phone", phone)
@@ -242,12 +269,14 @@ public final class ImmutableArticle implements Article {
   @Generated(from = "Article", generator = "Immutables")
   @NotThreadSafe
   public static final class Builder {
-    private static final long INIT_BIT_NAME = 0x1L;
-    private static final long INIT_BIT_EMAIL = 0x2L;
-    private static final long INIT_BIT_AADHAR_ID = 0x4L;
-    private static final long INIT_BIT_PAN_ID = 0x8L;
-    private long initBits = 0xfL;
+    private static final long INIT_BIT_UUID = 0x1L;
+    private static final long INIT_BIT_NAME = 0x2L;
+    private static final long INIT_BIT_EMAIL = 0x4L;
+    private static final long INIT_BIT_AADHAR_ID = 0x8L;
+    private static final long INIT_BIT_PAN_ID = 0x10L;
+    private long initBits = 0x1fL;
 
+    private @Nullable String uuid;
     private @Nullable String name;
     private @Nullable String email;
     private @Nullable String phone;
@@ -267,6 +296,7 @@ public final class ImmutableArticle implements Article {
     @CanIgnoreReturnValue 
     public final Builder from(Article instance) {
       Objects.requireNonNull(instance, "instance");
+      uuid(instance.uuid());
       name(instance.name());
       email(instance.email());
       Optional<String> phoneOptional = instance.phone();
@@ -275,6 +305,18 @@ public final class ImmutableArticle implements Article {
       }
       aadharId(instance.aadharId());
       panId(instance.panId());
+      return this;
+    }
+
+    /**
+     * Initializes the value for the {@link Article#uuid() uuid} attribute.
+     * @param uuid The value for uuid 
+     * @return {@code this} builder for use in a chained invocation
+     */
+    @CanIgnoreReturnValue 
+    public final Builder uuid(String uuid) {
+      this.uuid = Objects.requireNonNull(uuid, "uuid");
+      initBits &= ~INIT_BIT_UUID;
       return this;
     }
 
@@ -357,11 +399,12 @@ public final class ImmutableArticle implements Article {
       if (initBits != 0) {
         throw new IllegalStateException(formatRequiredAttributesMessage());
       }
-      return new ImmutableArticle(name, email, phone, aadharId, panId);
+      return new ImmutableArticle(uuid, name, email, phone, aadharId, panId);
     }
 
     private String formatRequiredAttributesMessage() {
       List<String> attributes = new ArrayList<>();
+      if ((initBits & INIT_BIT_UUID) != 0) attributes.add("uuid");
       if ((initBits & INIT_BIT_NAME) != 0) attributes.add("name");
       if ((initBits & INIT_BIT_EMAIL) != 0) attributes.add("email");
       if ((initBits & INIT_BIT_AADHAR_ID) != 0) attributes.add("aadharId");

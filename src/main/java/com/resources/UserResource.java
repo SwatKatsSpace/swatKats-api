@@ -2,10 +2,8 @@ package com.resources;
 
 import com.dao.UserDAO;
 import com.dao.UserDetailsDAO;
-import com.mapper.UserDetailsMapper;
 import com.model.User;
 import com.model.UserCompleInfo;
-import com.model.UserDetails;
 import com.model.immutables.ImmutableUser;
 import com.model.immutables.ImmutableUserCompleInfo;
 import org.slf4j.Logger;
@@ -15,7 +13,6 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Path("/swatkats/user")
 @Produces(MediaType.APPLICATION_JSON)
@@ -48,13 +45,14 @@ public class UserResource {
 
     @Path("/get")
     @GET
-    public User getAllUsers() {
-        User user = userDAO.getAll();
-        return user;
+    public List<User> getAllUsers() {
+        List<User> users = userDAO.getAll();
+        return users;
     }
 
+    @Path("/completeInfo")
     public List<UserCompleInfo>  getAllCompleteUserDetails() {
-        List<ImmutableUser> users = userDAO.getAll();
+        List<User> users = userDAO.getAll();
         List<UserCompleInfo> userCompleInfos = new ArrayList<UserCompleInfo>();
         users.stream().map(u -> {
             UserCompleInfo userCompleInfo = ImmutableUserCompleInfo.builder()
@@ -63,7 +61,7 @@ public class UserResource {
                     .build();
             return userCompleInfos.add(userCompleInfo);
         });
-
+        return userCompleInfos;
     }
 
 }

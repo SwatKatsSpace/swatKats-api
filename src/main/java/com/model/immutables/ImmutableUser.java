@@ -25,9 +25,11 @@ import org.immutables.value.Generated;
 @Generated(from = "User", generator = "Immutables")
 @SuppressWarnings({"all"})
 @ParametersAreNonnullByDefault
+@javax.annotation.Generated("org.immutables.processor.ProxyProcessor")
 @Immutable
 @CheckReturnValue
 public final class ImmutableUser implements User {
+  private final String uuid;
   private final String name;
   private final String email;
   private final @Nullable String phone;
@@ -36,18 +38,28 @@ public final class ImmutableUser implements User {
   private final String panId;
 
   private ImmutableUser(
+      String uuid,
       String name,
       String email,
       @Nullable String phone,
       String password,
       String aadharId,
       String panId) {
+    this.uuid = uuid;
     this.name = name;
     this.email = email;
     this.phone = phone;
     this.password = password;
     this.aadharId = aadharId;
     this.panId = panId;
+  }
+
+  /**
+   * @return The value of the {@code uuid} attribute
+   */
+  @Override
+  public String uuid() {
+    return uuid;
   }
 
   /**
@@ -99,6 +111,18 @@ public final class ImmutableUser implements User {
   }
 
   /**
+   * Copy the current immutable object by setting a value for the {@link User#uuid() uuid} attribute.
+   * An equals check used to prevent copying of the same value by returning {@code this}.
+   * @param value A new value for uuid
+   * @return A modified copy of the {@code this} object
+   */
+  public final ImmutableUser withUuid(String value) {
+    String newValue = Objects.requireNonNull(value, "uuid");
+    if (this.uuid.equals(newValue)) return this;
+    return new ImmutableUser(newValue, this.name, this.email, this.phone, this.password, this.aadharId, this.panId);
+  }
+
+  /**
    * Copy the current immutable object by setting a value for the {@link User#name() name} attribute.
    * An equals check used to prevent copying of the same value by returning {@code this}.
    * @param value A new value for name
@@ -107,7 +131,7 @@ public final class ImmutableUser implements User {
   public final ImmutableUser withName(String value) {
     String newValue = Objects.requireNonNull(value, "name");
     if (this.name.equals(newValue)) return this;
-    return new ImmutableUser(newValue, this.email, this.phone, this.password, this.aadharId, this.panId);
+    return new ImmutableUser(this.uuid, newValue, this.email, this.phone, this.password, this.aadharId, this.panId);
   }
 
   /**
@@ -119,7 +143,7 @@ public final class ImmutableUser implements User {
   public final ImmutableUser withEmail(String value) {
     String newValue = Objects.requireNonNull(value, "email");
     if (this.email.equals(newValue)) return this;
-    return new ImmutableUser(this.name, newValue, this.phone, this.password, this.aadharId, this.panId);
+    return new ImmutableUser(this.uuid, this.name, newValue, this.phone, this.password, this.aadharId, this.panId);
   }
 
   /**
@@ -130,7 +154,7 @@ public final class ImmutableUser implements User {
   public final ImmutableUser withPhone(String value) {
     @Nullable String newValue = Objects.requireNonNull(value, "phone");
     if (Objects.equals(this.phone, newValue)) return this;
-    return new ImmutableUser(this.name, this.email, newValue, this.password, this.aadharId, this.panId);
+    return new ImmutableUser(this.uuid, this.name, this.email, newValue, this.password, this.aadharId, this.panId);
   }
 
   /**
@@ -142,7 +166,7 @@ public final class ImmutableUser implements User {
   public final ImmutableUser withPhone(Optional<String> optional) {
     @Nullable String value = optional.orElse(null);
     if (Objects.equals(this.phone, value)) return this;
-    return new ImmutableUser(this.name, this.email, value, this.password, this.aadharId, this.panId);
+    return new ImmutableUser(this.uuid, this.name, this.email, value, this.password, this.aadharId, this.panId);
   }
 
   /**
@@ -154,7 +178,7 @@ public final class ImmutableUser implements User {
   public final ImmutableUser withPassword(String value) {
     String newValue = Objects.requireNonNull(value, "password");
     if (this.password.equals(newValue)) return this;
-    return new ImmutableUser(this.name, this.email, this.phone, newValue, this.aadharId, this.panId);
+    return new ImmutableUser(this.uuid, this.name, this.email, this.phone, newValue, this.aadharId, this.panId);
   }
 
   /**
@@ -166,7 +190,7 @@ public final class ImmutableUser implements User {
   public final ImmutableUser withAadharId(String value) {
     String newValue = Objects.requireNonNull(value, "aadharId");
     if (this.aadharId.equals(newValue)) return this;
-    return new ImmutableUser(this.name, this.email, this.phone, this.password, newValue, this.panId);
+    return new ImmutableUser(this.uuid, this.name, this.email, this.phone, this.password, newValue, this.panId);
   }
 
   /**
@@ -178,7 +202,7 @@ public final class ImmutableUser implements User {
   public final ImmutableUser withPanId(String value) {
     String newValue = Objects.requireNonNull(value, "panId");
     if (this.panId.equals(newValue)) return this;
-    return new ImmutableUser(this.name, this.email, this.phone, this.password, this.aadharId, newValue);
+    return new ImmutableUser(this.uuid, this.name, this.email, this.phone, this.password, this.aadharId, newValue);
   }
 
   /**
@@ -193,7 +217,8 @@ public final class ImmutableUser implements User {
   }
 
   private boolean equalTo(ImmutableUser another) {
-    return name.equals(another.name)
+    return uuid.equals(another.uuid)
+        && name.equals(another.name)
         && email.equals(another.email)
         && Objects.equals(phone, another.phone)
         && password.equals(another.password)
@@ -202,12 +227,13 @@ public final class ImmutableUser implements User {
   }
 
   /**
-   * Computes a hash code from attributes: {@code name}, {@code email}, {@code phone}, {@code password}, {@code aadharId}, {@code panId}.
+   * Computes a hash code from attributes: {@code uuid}, {@code name}, {@code email}, {@code phone}, {@code password}, {@code aadharId}, {@code panId}.
    * @return hashCode value
    */
   @Override
   public int hashCode() {
     @Var int h = 5381;
+    h += (h << 5) + uuid.hashCode();
     h += (h << 5) + name.hashCode();
     h += (h << 5) + email.hashCode();
     h += (h << 5) + Objects.hashCode(phone);
@@ -225,6 +251,7 @@ public final class ImmutableUser implements User {
   public String toString() {
     return MoreObjects.toStringHelper("User")
         .omitNullValues()
+        .add("uuid", uuid)
         .add("name", name)
         .add("email", email)
         .add("phone", phone)
@@ -254,8 +281,8 @@ public final class ImmutableUser implements User {
    * Creates a builder for {@link ImmutableUser ImmutableUser}.
    * @return A new ImmutableUser builder
    */
-  public static Builder builder() {
-    return new Builder();
+  public static ImmutableUser.Builder builder() {
+    return new ImmutableUser.Builder();
   }
 
   /**
@@ -268,13 +295,15 @@ public final class ImmutableUser implements User {
   @Generated(from = "User", generator = "Immutables")
   @NotThreadSafe
   public static final class Builder {
-    private static final long INIT_BIT_NAME = 0x1L;
-    private static final long INIT_BIT_EMAIL = 0x2L;
-    private static final long INIT_BIT_PASSWORD = 0x4L;
-    private static final long INIT_BIT_AADHAR_ID = 0x8L;
-    private static final long INIT_BIT_PAN_ID = 0x10L;
-    private long initBits = 0x1fL;
+    private static final long INIT_BIT_UUID = 0x1L;
+    private static final long INIT_BIT_NAME = 0x2L;
+    private static final long INIT_BIT_EMAIL = 0x4L;
+    private static final long INIT_BIT_PASSWORD = 0x8L;
+    private static final long INIT_BIT_AADHAR_ID = 0x10L;
+    private static final long INIT_BIT_PAN_ID = 0x20L;
+    private long initBits = 0x3fL;
 
+    private @Nullable String uuid;
     private @Nullable String name;
     private @Nullable String email;
     private @Nullable String phone;
@@ -295,6 +324,7 @@ public final class ImmutableUser implements User {
     @CanIgnoreReturnValue 
     public final Builder from(User instance) {
       Objects.requireNonNull(instance, "instance");
+      uuid(instance.uuid());
       name(instance.name());
       email(instance.email());
       Optional<String> phoneOptional = instance.phone();
@@ -304,6 +334,18 @@ public final class ImmutableUser implements User {
       password(instance.password());
       aadharId(instance.aadharId());
       panId(instance.panId());
+      return this;
+    }
+
+    /**
+     * Initializes the value for the {@link User#uuid() uuid} attribute.
+     * @param uuid The value for uuid 
+     * @return {@code this} builder for use in a chained invocation
+     */
+    @CanIgnoreReturnValue 
+    public final Builder uuid(String uuid) {
+      this.uuid = Objects.requireNonNull(uuid, "uuid");
+      initBits &= ~INIT_BIT_UUID;
       return this;
     }
 
@@ -392,17 +434,18 @@ public final class ImmutableUser implements User {
     /**
      * Builds a new {@link ImmutableUser ImmutableUser}.
      * @return An immutable instance of User
-     * @throws IllegalStateException if any required attributes are missing
+     * @throws java.lang.IllegalStateException if any required attributes are missing
      */
     public ImmutableUser build() {
       if (initBits != 0) {
         throw new IllegalStateException(formatRequiredAttributesMessage());
       }
-      return new ImmutableUser(name, email, phone, password, aadharId, panId);
+      return new ImmutableUser(uuid, name, email, phone, password, aadharId, panId);
     }
 
     private String formatRequiredAttributesMessage() {
       List<String> attributes = new ArrayList<>();
+      if ((initBits & INIT_BIT_UUID) != 0) attributes.add("uuid");
       if ((initBits & INIT_BIT_NAME) != 0) attributes.add("name");
       if ((initBits & INIT_BIT_EMAIL) != 0) attributes.add("email");
       if ((initBits & INIT_BIT_PASSWORD) != 0) attributes.add("password");

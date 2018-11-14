@@ -3,6 +3,7 @@ package com.resources;
 import com.dao.*;
 import com.model.Article;
 import com.model.User;
+import com.model.immutables.ImmutableArticle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,6 +11,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import java.util.List;
 
 @Path("/swatkats/article")
 @Produces(MediaType.APPLICATION_JSON)
@@ -37,8 +39,8 @@ public class ArticleResource {
 
     @Path("/get")
     @GET
-    public Article getUser() {
-        Article article = articleDAO.getAll();
-        return article;
+    public List<Article> getUser() {
+        List<Article> articles = articleDAO.getAll();
+        return articles;
     }
 }

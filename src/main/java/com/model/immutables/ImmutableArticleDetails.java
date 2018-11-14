@@ -25,9 +25,11 @@ import org.immutables.value.Generated;
 @Generated(from = "ArticleDetails", generator = "Immutables")
 @SuppressWarnings({"all"})
 @ParametersAreNonnullByDefault
+@javax.annotation.Generated("org.immutables.processor.ProxyProcessor")
 @Immutable
 @CheckReturnValue
 public final class ImmutableArticleDetails implements ArticleDetails {
+  private final String uuid;
   private final String[] photo;
   private final String lat;
   private final String lng;
@@ -35,16 +37,26 @@ public final class ImmutableArticleDetails implements ArticleDetails {
   private final Object info;
 
   private ImmutableArticleDetails(
+      String uuid,
       String[] photo,
       String lat,
       String lng,
       Object address,
       Object info) {
+    this.uuid = uuid;
     this.photo = photo;
     this.lat = lat;
     this.lng = lng;
     this.address = address;
     this.info = info;
+  }
+
+  /**
+   * @return The value of the {@code uuid} attribute
+   */
+  @Override
+  public String uuid() {
+    return uuid;
   }
 
   /**
@@ -88,6 +100,18 @@ public final class ImmutableArticleDetails implements ArticleDetails {
   }
 
   /**
+   * Copy the current immutable object by setting a value for the {@link ArticleDetails#uuid() uuid} attribute.
+   * An equals check used to prevent copying of the same value by returning {@code this}.
+   * @param value A new value for uuid
+   * @return A modified copy of the {@code this} object
+   */
+  public final ImmutableArticleDetails withUuid(String value) {
+    String newValue = Objects.requireNonNull(value, "uuid");
+    if (this.uuid.equals(newValue)) return this;
+    return new ImmutableArticleDetails(newValue, this.photo, this.lat, this.lng, this.address, this.info);
+  }
+
+  /**
    * Copy the current immutable object with elements that replace the content of {@link ArticleDetails#photo() photo}.
    * The array is cloned before being saved as attribute values.
    * @param elements The non-null elements for photo
@@ -95,7 +119,7 @@ public final class ImmutableArticleDetails implements ArticleDetails {
    */
   public final ImmutableArticleDetails withPhoto(String... elements) {
     String[] newValue = elements.clone();
-    return new ImmutableArticleDetails(newValue, this.lat, this.lng, this.address, this.info);
+    return new ImmutableArticleDetails(this.uuid, newValue, this.lat, this.lng, this.address, this.info);
   }
 
   /**
@@ -107,7 +131,7 @@ public final class ImmutableArticleDetails implements ArticleDetails {
   public final ImmutableArticleDetails withLat(String value) {
     String newValue = Objects.requireNonNull(value, "lat");
     if (this.lat.equals(newValue)) return this;
-    return new ImmutableArticleDetails(this.photo, newValue, this.lng, this.address, this.info);
+    return new ImmutableArticleDetails(this.uuid, this.photo, newValue, this.lng, this.address, this.info);
   }
 
   /**
@@ -119,7 +143,7 @@ public final class ImmutableArticleDetails implements ArticleDetails {
   public final ImmutableArticleDetails withLng(String value) {
     String newValue = Objects.requireNonNull(value, "lng");
     if (this.lng.equals(newValue)) return this;
-    return new ImmutableArticleDetails(this.photo, this.lat, newValue, this.address, this.info);
+    return new ImmutableArticleDetails(this.uuid, this.photo, this.lat, newValue, this.address, this.info);
   }
 
   /**
@@ -131,7 +155,7 @@ public final class ImmutableArticleDetails implements ArticleDetails {
   public final ImmutableArticleDetails withAddress(Object value) {
     if (this.address == value) return this;
     Object newValue = Objects.requireNonNull(value, "address");
-    return new ImmutableArticleDetails(this.photo, this.lat, this.lng, newValue, this.info);
+    return new ImmutableArticleDetails(this.uuid, this.photo, this.lat, this.lng, newValue, this.info);
   }
 
   /**
@@ -143,7 +167,7 @@ public final class ImmutableArticleDetails implements ArticleDetails {
   public final ImmutableArticleDetails withInfo(Object value) {
     if (this.info == value) return this;
     Object newValue = Objects.requireNonNull(value, "info");
-    return new ImmutableArticleDetails(this.photo, this.lat, this.lng, this.address, newValue);
+    return new ImmutableArticleDetails(this.uuid, this.photo, this.lat, this.lng, this.address, newValue);
   }
 
   /**
@@ -158,7 +182,8 @@ public final class ImmutableArticleDetails implements ArticleDetails {
   }
 
   private boolean equalTo(ImmutableArticleDetails another) {
-    return Arrays.equals(photo, another.photo)
+    return uuid.equals(another.uuid)
+        && Arrays.equals(photo, another.photo)
         && lat.equals(another.lat)
         && lng.equals(another.lng)
         && address.equals(another.address)
@@ -166,12 +191,13 @@ public final class ImmutableArticleDetails implements ArticleDetails {
   }
 
   /**
-   * Computes a hash code from attributes: {@code photo}, {@code lat}, {@code lng}, {@code address}, {@code info}.
+   * Computes a hash code from attributes: {@code uuid}, {@code photo}, {@code lat}, {@code lng}, {@code address}, {@code info}.
    * @return hashCode value
    */
   @Override
   public int hashCode() {
     @Var int h = 5381;
+    h += (h << 5) + uuid.hashCode();
     h += (h << 5) + Arrays.hashCode(photo);
     h += (h << 5) + lat.hashCode();
     h += (h << 5) + lng.hashCode();
@@ -188,6 +214,7 @@ public final class ImmutableArticleDetails implements ArticleDetails {
   public String toString() {
     return MoreObjects.toStringHelper("ArticleDetails")
         .omitNullValues()
+        .add("uuid", uuid)
         .add("photo", Arrays.toString(photo))
         .add("lat", lat)
         .add("lng", lng)
@@ -230,13 +257,15 @@ public final class ImmutableArticleDetails implements ArticleDetails {
   @Generated(from = "ArticleDetails", generator = "Immutables")
   @NotThreadSafe
   public static final class Builder {
-    private static final long INIT_BIT_PHOTO = 0x1L;
-    private static final long INIT_BIT_LAT = 0x2L;
-    private static final long INIT_BIT_LNG = 0x4L;
-    private static final long INIT_BIT_ADDRESS = 0x8L;
-    private static final long INIT_BIT_INFO = 0x10L;
-    private long initBits = 0x1fL;
+    private static final long INIT_BIT_UUID = 0x1L;
+    private static final long INIT_BIT_PHOTO = 0x2L;
+    private static final long INIT_BIT_LAT = 0x4L;
+    private static final long INIT_BIT_LNG = 0x8L;
+    private static final long INIT_BIT_ADDRESS = 0x10L;
+    private static final long INIT_BIT_INFO = 0x20L;
+    private long initBits = 0x3fL;
 
+    private @Nullable String uuid;
     private @Nullable String[] photo;
     private @Nullable String lat;
     private @Nullable String lng;
@@ -256,11 +285,24 @@ public final class ImmutableArticleDetails implements ArticleDetails {
     @CanIgnoreReturnValue 
     public final Builder from(ArticleDetails instance) {
       Objects.requireNonNull(instance, "instance");
+      uuid(instance.uuid());
       photo(instance.photo());
       lat(instance.lat());
       lng(instance.lng());
       address(instance.address());
       info(instance.info());
+      return this;
+    }
+
+    /**
+     * Initializes the value for the {@link ArticleDetails#uuid() uuid} attribute.
+     * @param uuid The value for uuid 
+     * @return {@code this} builder for use in a chained invocation
+     */
+    @CanIgnoreReturnValue 
+    public final Builder uuid(String uuid) {
+      this.uuid = Objects.requireNonNull(uuid, "uuid");
+      initBits &= ~INIT_BIT_UUID;
       return this;
     }
 
@@ -333,11 +375,12 @@ public final class ImmutableArticleDetails implements ArticleDetails {
       if (initBits != 0) {
         throw new IllegalStateException(formatRequiredAttributesMessage());
       }
-      return new ImmutableArticleDetails(photo, lat, lng, address, info);
+      return new ImmutableArticleDetails(uuid, photo, lat, lng, address, info);
     }
 
     private String formatRequiredAttributesMessage() {
       List<String> attributes = new ArrayList<>();
+      if ((initBits & INIT_BIT_UUID) != 0) attributes.add("uuid");
       if ((initBits & INIT_BIT_PHOTO) != 0) attributes.add("photo");
       if ((initBits & INIT_BIT_LAT) != 0) attributes.add("lat");
       if ((initBits & INIT_BIT_LNG) != 0) attributes.add("lng");
