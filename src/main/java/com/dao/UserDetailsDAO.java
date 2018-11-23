@@ -1,6 +1,7 @@
 package com.dao;
 
 import com.mapper.UserDetailsMapper;
+import com.model.UserCompleInfo;
 import com.model.UserDetails;
 import com.model.immutables.ImmutableUserDetails;
 import org.jdbi.v3.sqlobject.config.RegisterRowMapper;
@@ -17,5 +18,4 @@ public interface UserDetailsDAO {
     @SqlQuery("select * from user_details")
     List<UserDetails> getAll();
 
-    //@SqlUpdate("");
 }
