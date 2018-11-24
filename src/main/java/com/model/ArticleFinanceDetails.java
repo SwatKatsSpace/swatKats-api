@@ -3,7 +3,7 @@ package com.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.immutables.value.Value;
 
-@Value.Immutable
+//@Value.Immutable
 public interface ArticleFinanceDetails {
     @JsonProperty
     String uuid();

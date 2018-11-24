@@ -5,7 +5,7 @@ import org.immutables.value.Value;
 
 import java.util.Optional;
 
-@Value.Immutable
+//@Value.Immutable
 public interface User {
     @JsonProperty
     String uuid();
