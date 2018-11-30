@@ -20,25 +20,31 @@ public interface UserDAO {
     @SqlUpdate("insert into users (name, email, phone, password, aadhar_id, pan_id) values (:name, :email, :phone, :password, :aadharId, :panId)")
     Integer insert(@Bind("name") String name, @Bind("email") String email, @Bind("phone") String phone, @Bind("password") String password, @Bind("aadharId") String aadharId, @Bind("panId") String panId);
 
+    @SqlQuery("select * from users where email = :email or phone = :phone")
+    List<ImmutableUser> findByEmailAndPhone(@Bind("email") String email, @Bind("phone") String phone);
+
+    @SqlQuery("select * from users where email = :email or phone = :phone or aadhar_id = :aadharId")
+    List<ImmutableUser> findByEmailAndPhoneAndAadhar(@Bind("email") String email, @Bind("phone") String phone, @Bind("aadharId") String aadharId);
+
     @SqlQuery("select * from users where name like :name")
-    User findByName(@Bind("name") String name);
+    ImmutableUser findByName(@Bind("name") String name);
 
     @SqlQuery("select * from users where name = :email")
-    User findByEmail(@Bind("email") String email);
+    ImmutableUser findByEmail(@Bind("email") String email);
 
     @SqlQuery("select * from users where aadhar_id = :aadharId")
-    User findByAadharId(@Bind("aadharId") String aadharId);
+    ImmutableUser findByAadharId(@Bind("aadharId") String aadharId);
 
     @SqlQuery("select * from users where pan_id = :panId")
-    User findByPanId(@Bind("panId") String panId);
+    ImmutableUser findByPanId(@Bind("panId") String panId);
 
     @SqlQuery("select * from users where uuid = :uuid")
-    User findId(@Bind("uuid") String uuid);
+    ImmutableUser findId(@Bind("uuid") String uuid);
 
     @SqlQuery("select * from users where phone = :phone")
-    User findByPhone(@Bind("phone") String phone);
+    ImmutableUser findByPhone(@Bind("phone") String phone);
 
     @SqlQuery("select * from users")
-    List<User> getAll();
+    List<ImmutableUser> getAll();
 
 }

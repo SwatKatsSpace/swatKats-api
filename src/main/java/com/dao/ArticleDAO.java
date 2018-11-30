@@ -19,6 +19,9 @@ public interface ArticleDAO {
     @SqlQuery("select * from article where name like :name")
     Article findByName(@Bind("name") String name);
 
+    @SqlQuery("select * from article as a where a.uuid = :uuid and a.phone = :phone")
+    Article findByUuidAndPhone(@Bind("uuid") String uuid, @Bind("phone") String phone);
+
     @SqlQuery("select * from article where name = :email")
     Article findByEmail(@Bind("email") String email);
 

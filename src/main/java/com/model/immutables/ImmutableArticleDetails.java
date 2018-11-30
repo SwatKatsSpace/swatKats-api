@@ -1,5 +1,9 @@
 package com.model.immutables;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.common.base.MoreObjects;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import com.google.errorprone.annotations.Var;
@@ -54,6 +58,7 @@ public final class ImmutableArticleDetails implements ArticleDetails {
   /**
    * @return The value of the {@code uuid} attribute
    */
+  @JsonProperty
   @Override
   public String uuid() {
     return uuid;
@@ -62,6 +67,7 @@ public final class ImmutableArticleDetails implements ArticleDetails {
   /**
    * @return A cloned {@code photo} array
    */
+  @JsonProperty
   @Override
   public String[] photo() {
     return photo.clone();
@@ -70,6 +76,7 @@ public final class ImmutableArticleDetails implements ArticleDetails {
   /**
    * @return The value of the {@code lat} attribute
    */
+  @JsonProperty
   @Override
   public String lat() {
     return lat;
@@ -78,6 +85,7 @@ public final class ImmutableArticleDetails implements ArticleDetails {
   /**
    * @return The value of the {@code lng} attribute
    */
+  @JsonProperty
   @Override
   public String lng() {
     return lng;
@@ -86,6 +94,7 @@ public final class ImmutableArticleDetails implements ArticleDetails {
   /**
    * @return The value of the {@code address} attribute
    */
+  @JsonProperty
   @Override
   public Object address() {
     return address;
@@ -94,6 +103,7 @@ public final class ImmutableArticleDetails implements ArticleDetails {
   /**
    * @return The value of the {@code info} attribute
    */
+  @JsonProperty
   @Override
   public Object info() {
     return info;
@@ -224,6 +234,90 @@ public final class ImmutableArticleDetails implements ArticleDetails {
   }
 
   /**
+   * Utility type used to correctly read immutable object from JSON representation.
+   * @deprecated Do not use this type directly, it exists only for the <em>Jackson</em>-binding infrastructure
+   */
+  @Generated(from = "ArticleDetails", generator = "Immutables")
+  @Deprecated
+  @SuppressWarnings("Immutable")
+  @JsonDeserialize
+  @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.NONE)
+  static final class Json implements ArticleDetails {
+    @Nullable String uuid;
+    @Nullable String[] photo;
+    @Nullable String lat;
+    @Nullable String lng;
+    @Nullable Object address;
+    @Nullable Object info;
+    @JsonProperty
+    public void setUuid(String uuid) {
+      this.uuid = uuid;
+    }
+    @JsonProperty
+    public void setPhoto(String[] photo) {
+      this.photo = photo;
+    }
+    @JsonProperty
+    public void setLat(String lat) {
+      this.lat = lat;
+    }
+    @JsonProperty
+    public void setLng(String lng) {
+      this.lng = lng;
+    }
+    @JsonProperty
+    public void setAddress(Object address) {
+      this.address = address;
+    }
+    @JsonProperty
+    public void setInfo(Object info) {
+      this.info = info;
+    }
+    @Override
+    public String uuid() { throw new UnsupportedOperationException(); }
+    @Override
+    public String[] photo() { throw new UnsupportedOperationException(); }
+    @Override
+    public String lat() { throw new UnsupportedOperationException(); }
+    @Override
+    public String lng() { throw new UnsupportedOperationException(); }
+    @Override
+    public Object address() { throw new UnsupportedOperationException(); }
+    @Override
+    public Object info() { throw new UnsupportedOperationException(); }
+  }
+
+  /**
+   * @param json A JSON-bindable data structure
+   * @return An immutable value type
+   * @deprecated Do not use this method directly, it exists only for the <em>Jackson</em>-binding infrastructure
+   */
+  @Deprecated
+  @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
+  static ImmutableArticleDetails fromJson(Json json) {
+    ImmutableArticleDetails.Builder builder = ImmutableArticleDetails.builder();
+    if (json.uuid != null) {
+      builder.uuid(json.uuid);
+    }
+    if (json.photo != null) {
+      builder.photo(json.photo);
+    }
+    if (json.lat != null) {
+      builder.lat(json.lat);
+    }
+    if (json.lng != null) {
+      builder.lng(json.lng);
+    }
+    if (json.address != null) {
+      builder.address(json.address);
+    }
+    if (json.info != null) {
+      builder.info(json.info);
+    }
+    return builder.build();
+  }
+
+  /**
    * Creates an immutable copy of a {@link ArticleDetails} value.
    * Uses accessors to get values to initialize the new immutable instance.
    * If an instance is already immutable, it is returned as is.
@@ -300,6 +394,7 @@ public final class ImmutableArticleDetails implements ArticleDetails {
      * @return {@code this} builder for use in a chained invocation
      */
     @CanIgnoreReturnValue 
+    @JsonProperty
     public final Builder uuid(String uuid) {
       this.uuid = Objects.requireNonNull(uuid, "uuid");
       initBits &= ~INIT_BIT_UUID;
@@ -312,6 +407,7 @@ public final class ImmutableArticleDetails implements ArticleDetails {
      * @return {@code this} builder for use in a chained invocation
      */
     @CanIgnoreReturnValue 
+    @JsonProperty
     public final Builder photo(String... photo) {
       this.photo = photo.clone();
       initBits &= ~INIT_BIT_PHOTO;
@@ -324,6 +420,7 @@ public final class ImmutableArticleDetails implements ArticleDetails {
      * @return {@code this} builder for use in a chained invocation
      */
     @CanIgnoreReturnValue 
+    @JsonProperty
     public final Builder lat(String lat) {
       this.lat = Objects.requireNonNull(lat, "lat");
       initBits &= ~INIT_BIT_LAT;
@@ -336,6 +433,7 @@ public final class ImmutableArticleDetails implements ArticleDetails {
      * @return {@code this} builder for use in a chained invocation
      */
     @CanIgnoreReturnValue 
+    @JsonProperty
     public final Builder lng(String lng) {
       this.lng = Objects.requireNonNull(lng, "lng");
       initBits &= ~INIT_BIT_LNG;
@@ -348,6 +446,7 @@ public final class ImmutableArticleDetails implements ArticleDetails {
      * @return {@code this} builder for use in a chained invocation
      */
     @CanIgnoreReturnValue 
+    @JsonProperty
     public final Builder address(Object address) {
       this.address = Objects.requireNonNull(address, "address");
       initBits &= ~INIT_BIT_ADDRESS;
@@ -360,6 +459,7 @@ public final class ImmutableArticleDetails implements ArticleDetails {
      * @return {@code this} builder for use in a chained invocation
      */
     @CanIgnoreReturnValue 
+    @JsonProperty
     public final Builder info(Object info) {
       this.info = Objects.requireNonNull(info, "info");
       initBits &= ~INIT_BIT_INFO;

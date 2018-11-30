@@ -1,5 +1,9 @@
 package com.model.immutables;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.common.base.MoreObjects;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import com.google.errorprone.annotations.Var;
@@ -41,6 +45,7 @@ public final class ImmutableUserDetails implements UserDetails {
   /**
    * @return The value of the {@code uuid} attribute
    */
+  @JsonProperty
   @Override
   public String uuid() {
     return uuid;
@@ -49,6 +54,7 @@ public final class ImmutableUserDetails implements UserDetails {
   /**
    * @return The value of the {@code address} attribute
    */
+  @JsonProperty
   @Override
   public Object address() {
     return address;
@@ -57,6 +63,7 @@ public final class ImmutableUserDetails implements UserDetails {
   /**
    * @return The value of the {@code info} attribute
    */
+  @JsonProperty
   @Override
   public Object info() {
     return info;
@@ -143,6 +150,60 @@ public final class ImmutableUserDetails implements UserDetails {
   }
 
   /**
+   * Utility type used to correctly read immutable object from JSON representation.
+   * @deprecated Do not use this type directly, it exists only for the <em>Jackson</em>-binding infrastructure
+   */
+  @Generated(from = "UserDetails", generator = "Immutables")
+  @Deprecated
+  @SuppressWarnings("Immutable")
+  @JsonDeserialize
+  @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.NONE)
+  static final class Json implements UserDetails {
+    @Nullable String uuid;
+    @Nullable Object address;
+    @Nullable Object info;
+    @JsonProperty
+    public void setUuid(String uuid) {
+      this.uuid = uuid;
+    }
+    @JsonProperty
+    public void setAddress(Object address) {
+      this.address = address;
+    }
+    @JsonProperty
+    public void setInfo(Object info) {
+      this.info = info;
+    }
+    @Override
+    public String uuid() { throw new UnsupportedOperationException(); }
+    @Override
+    public Object address() { throw new UnsupportedOperationException(); }
+    @Override
+    public Object info() { throw new UnsupportedOperationException(); }
+  }
+
+  /**
+   * @param json A JSON-bindable data structure
+   * @return An immutable value type
+   * @deprecated Do not use this method directly, it exists only for the <em>Jackson</em>-binding infrastructure
+   */
+  @Deprecated
+  @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
+  static ImmutableUserDetails fromJson(Json json) {
+    ImmutableUserDetails.Builder builder = ImmutableUserDetails.builder();
+    if (json.uuid != null) {
+      builder.uuid(json.uuid);
+    }
+    if (json.address != null) {
+      builder.address(json.address);
+    }
+    if (json.info != null) {
+      builder.info(json.info);
+    }
+    return builder.build();
+  }
+
+  /**
    * Creates an immutable copy of a {@link UserDetails} value.
    * Uses accessors to get values to initialize the new immutable instance.
    * If an instance is already immutable, it is returned as is.
@@ -210,6 +271,7 @@ public final class ImmutableUserDetails implements UserDetails {
      * @return {@code this} builder for use in a chained invocation
      */
     @CanIgnoreReturnValue 
+    @JsonProperty
     public final Builder uuid(String uuid) {
       this.uuid = Objects.requireNonNull(uuid, "uuid");
       initBits &= ~INIT_BIT_UUID;
@@ -222,6 +284,7 @@ public final class ImmutableUserDetails implements UserDetails {
      * @return {@code this} builder for use in a chained invocation
      */
     @CanIgnoreReturnValue 
+    @JsonProperty
     public final Builder address(Object address) {
       this.address = Objects.requireNonNull(address, "address");
       initBits &= ~INIT_BIT_ADDRESS;
@@ -234,6 +297,7 @@ public final class ImmutableUserDetails implements UserDetails {
      * @return {@code this} builder for use in a chained invocation
      */
     @CanIgnoreReturnValue 
+    @JsonProperty
     public final Builder info(Object info) {
       this.info = Objects.requireNonNull(info, "info");
       initBits &= ~INIT_BIT_INFO;

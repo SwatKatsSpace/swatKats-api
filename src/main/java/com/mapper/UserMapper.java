@@ -12,6 +12,8 @@ public class UserMapper implements RowMapper<ImmutableUser> {
     @Override
     public ImmutableUser map(ResultSet rs, StatementContext ctx) throws SQLException {
         return  ImmutableUser.builder()
+                .uuid(rs.getString("uuid"))
+                .password(rs.getString("password"))
                 .name(rs.getString("name"))
                 .aadharId(rs.getString("aadhar_id"))
                 .email(rs.getString("email"))

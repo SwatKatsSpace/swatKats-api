@@ -1,11 +1,15 @@
 package com.resources;
 
+import com.UIResponse.GenericResponse;
 import com.dao.UserDAO;
 import com.dao.UserDetailsDAO;
 import com.model.User;
 import com.model.UserCompleInfo;
 import com.model.immutables.ImmutableUser;
 import com.model.immutables.ImmutableUserCompleInfo;
+import org.apache.commons.lang3.StringUtils;
+import org.jdbi.v3.core.Handle;
+import org.jdbi.v3.core.Jdbi;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,18 +25,32 @@ public class UserResource {
 
     private final UserDAO userDAO;
     private final UserDetailsDAO userDetailsDAO;
+    private final Jdbi jdbi;
 
-    public UserResource(UserDAO userDAO, UserDetailsDAO userDetailsDAO) {
+    public UserResource(Jdbi jdbi, UserDAO userDAO, UserDetailsDAO userDetailsDAO) {
         this.userDAO = userDAO;
         this.userDetailsDAO = userDetailsDAO;
+        this.jdbi = jdbi;
     }
 
     @Path("/add")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public Integer insertUser(ImmutableUser user) {
+    public GenericResponse insertUser(ImmutableUser user) {
         LOGGER.info("getting user info");
-        return userDAO.insert(user.name(), user.email(), user.phone().toString(), user.password(), user.aadharId(), user.panId());
+        List<ImmutableUser> immutableUsers = userDAO.findByEmailAndPhoneAndAadhar(user.email(), user.phone().get(), user.aadharId());
+        if(immutableUsers == null || immutableUsers.isEmpty()) {
+            Integer result = userDAO.insert(user.name(), user.email(), user.phone().toString(), user.password(), user.aadharId(), user.panId());
+            if(result > 0 ) {
+                return new GenericResponse(1, "Sucessfully Updated");
+            } else {
+                return new GenericResponse(0, "Failed to Updated");
+            }
+        }
+        else {
+            return new GenericResponse(0, "Duplicate Records");
+        }
+
 
     }
 
@@ -45,14 +63,15 @@ public class UserResource {
 
     @Path("/get")
     @GET
-    public List<User> getAllUsers() {
-        List<User> users = userDAO.getAll();
+    public List<ImmutableUser> getAllUsers() {
+        List<ImmutableUser> users = userDAO.getAll();
         return users;
     }
 
+    @GET
     @Path("/completeInfo")
     public List<UserCompleInfo>  getAllCompleteUserDetails() {
-        List<User> users = userDAO.getAll();
+        List<ImmutableUser> users = userDAO.getAll();
         List<UserCompleInfo> userCompleInfos = new ArrayList<UserCompleInfo>();
         users.stream().map(u -> {
             UserCompleInfo userCompleInfo = ImmutableUserCompleInfo.builder()
@@ -63,5 +82,7 @@ public class UserResource {
         });
         return userCompleInfos;
     }
+
+
 
 }

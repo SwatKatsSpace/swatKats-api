@@ -1,5 +1,9 @@
 package com.model.immutables;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.common.base.MoreObjects;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import com.google.errorprone.annotations.Var;
@@ -48,6 +52,7 @@ public final class ImmutableArticleMetadata implements ArticleMetadata {
   /**
    * @return The value of the {@code uuid} attribute
    */
+  @JsonProperty
   @Override
   public String uuid() {
     return uuid;
@@ -56,6 +61,7 @@ public final class ImmutableArticleMetadata implements ArticleMetadata {
   /**
    * @return The value of the {@code description} attribute
    */
+  @JsonProperty
   @Override
   public String description() {
     return description;
@@ -64,6 +70,7 @@ public final class ImmutableArticleMetadata implements ArticleMetadata {
   /**
    * @return The value of the {@code category} attribute
    */
+  @JsonProperty
   @Override
   public String category() {
     return category;
@@ -72,6 +79,7 @@ public final class ImmutableArticleMetadata implements ArticleMetadata {
   /**
    * @return A cloned {@code tags} array
    */
+  @JsonProperty
   @Override
   public String[] tags() {
     return tags.clone();
@@ -172,6 +180,70 @@ public final class ImmutableArticleMetadata implements ArticleMetadata {
   }
 
   /**
+   * Utility type used to correctly read immutable object from JSON representation.
+   * @deprecated Do not use this type directly, it exists only for the <em>Jackson</em>-binding infrastructure
+   */
+  @Generated(from = "ArticleMetadata", generator = "Immutables")
+  @Deprecated
+  @SuppressWarnings("Immutable")
+  @JsonDeserialize
+  @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.NONE)
+  static final class Json implements ArticleMetadata {
+    @Nullable String uuid;
+    @Nullable String description;
+    @Nullable String category;
+    @Nullable String[] tags;
+    @JsonProperty
+    public void setUuid(String uuid) {
+      this.uuid = uuid;
+    }
+    @JsonProperty
+    public void setDescription(String description) {
+      this.description = description;
+    }
+    @JsonProperty
+    public void setCategory(String category) {
+      this.category = category;
+    }
+    @JsonProperty
+    public void setTags(String[] tags) {
+      this.tags = tags;
+    }
+    @Override
+    public String uuid() { throw new UnsupportedOperationException(); }
+    @Override
+    public String description() { throw new UnsupportedOperationException(); }
+    @Override
+    public String category() { throw new UnsupportedOperationException(); }
+    @Override
+    public String[] tags() { throw new UnsupportedOperationException(); }
+  }
+
+  /**
+   * @param json A JSON-bindable data structure
+   * @return An immutable value type
+   * @deprecated Do not use this method directly, it exists only for the <em>Jackson</em>-binding infrastructure
+   */
+  @Deprecated
+  @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
+  static ImmutableArticleMetadata fromJson(Json json) {
+    ImmutableArticleMetadata.Builder builder = ImmutableArticleMetadata.builder();
+    if (json.uuid != null) {
+      builder.uuid(json.uuid);
+    }
+    if (json.description != null) {
+      builder.description(json.description);
+    }
+    if (json.category != null) {
+      builder.category(json.category);
+    }
+    if (json.tags != null) {
+      builder.tags(json.tags);
+    }
+    return builder.build();
+  }
+
+  /**
    * Creates an immutable copy of a {@link ArticleMetadata} value.
    * Uses accessors to get values to initialize the new immutable instance.
    * If an instance is already immutable, it is returned as is.
@@ -242,6 +314,7 @@ public final class ImmutableArticleMetadata implements ArticleMetadata {
      * @return {@code this} builder for use in a chained invocation
      */
     @CanIgnoreReturnValue 
+    @JsonProperty
     public final Builder uuid(String uuid) {
       this.uuid = Objects.requireNonNull(uuid, "uuid");
       initBits &= ~INIT_BIT_UUID;
@@ -254,6 +327,7 @@ public final class ImmutableArticleMetadata implements ArticleMetadata {
      * @return {@code this} builder for use in a chained invocation
      */
     @CanIgnoreReturnValue 
+    @JsonProperty
     public final Builder description(String description) {
       this.description = Objects.requireNonNull(description, "description");
       initBits &= ~INIT_BIT_DESCRIPTION;
@@ -266,6 +340,7 @@ public final class ImmutableArticleMetadata implements ArticleMetadata {
      * @return {@code this} builder for use in a chained invocation
      */
     @CanIgnoreReturnValue 
+    @JsonProperty
     public final Builder category(String category) {
       this.category = Objects.requireNonNull(category, "category");
       initBits &= ~INIT_BIT_CATEGORY;
@@ -278,6 +353,7 @@ public final class ImmutableArticleMetadata implements ArticleMetadata {
      * @return {@code this} builder for use in a chained invocation
      */
     @CanIgnoreReturnValue 
+    @JsonProperty
     public final Builder tags(String... tags) {
       this.tags = tags.clone();
       initBits &= ~INIT_BIT_TAGS;

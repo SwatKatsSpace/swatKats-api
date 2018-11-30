@@ -1,5 +1,9 @@
 package com.model.immutables;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.common.base.MoreObjects;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import com.google.errorprone.annotations.Var;
@@ -57,6 +61,7 @@ public final class ImmutableUser implements User {
   /**
    * @return The value of the {@code uuid} attribute
    */
+  @JsonProperty
   @Override
   public String uuid() {
     return uuid;
@@ -65,6 +70,7 @@ public final class ImmutableUser implements User {
   /**
    * @return The value of the {@code name} attribute
    */
+  @JsonProperty
   @Override
   public String name() {
     return name;
@@ -73,6 +79,7 @@ public final class ImmutableUser implements User {
   /**
    * @return The value of the {@code email} attribute
    */
+  @JsonProperty
   @Override
   public String email() {
     return email;
@@ -81,6 +88,7 @@ public final class ImmutableUser implements User {
   /**
    * @return The value of the {@code phone} attribute
    */
+  @JsonProperty
   @Override
   public Optional<String> phone() {
     return Optional.ofNullable(phone);
@@ -89,6 +97,7 @@ public final class ImmutableUser implements User {
   /**
    * @return The value of the {@code password} attribute
    */
+  @JsonProperty
   @Override
   public String password() {
     return password;
@@ -97,6 +106,7 @@ public final class ImmutableUser implements User {
   /**
    * @return The value of the {@code aadharId} attribute
    */
+  @JsonProperty
   @Override
   public String aadharId() {
     return aadharId;
@@ -105,6 +115,7 @@ public final class ImmutableUser implements User {
   /**
    * @return The value of the {@code panId} attribute
    */
+  @JsonProperty
   @Override
   public String panId() {
     return panId;
@@ -262,6 +273,100 @@ public final class ImmutableUser implements User {
   }
 
   /**
+   * Utility type used to correctly read immutable object from JSON representation.
+   * @deprecated Do not use this type directly, it exists only for the <em>Jackson</em>-binding infrastructure
+   */
+  @Generated(from = "User", generator = "Immutables")
+  @Deprecated
+  @SuppressWarnings("Immutable")
+  @JsonDeserialize
+  @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.NONE)
+  static final class Json implements User {
+    @Nullable String uuid;
+    @Nullable String name;
+    @Nullable String email;
+    @Nullable Optional<String> phone = Optional.empty();
+    @Nullable String password;
+    @Nullable String aadharId;
+    @Nullable String panId;
+    @JsonProperty
+    public void setUuid(String uuid) {
+      this.uuid = uuid;
+    }
+    @JsonProperty
+    public void setName(String name) {
+      this.name = name;
+    }
+    @JsonProperty
+    public void setEmail(String email) {
+      this.email = email;
+    }
+    @JsonProperty
+    public void setPhone(Optional<String> phone) {
+      this.phone = phone;
+    }
+    @JsonProperty
+    public void setPassword(String password) {
+      this.password = password;
+    }
+    @JsonProperty
+    public void setAadharId(String aadharId) {
+      this.aadharId = aadharId;
+    }
+    @JsonProperty
+    public void setPanId(String panId) {
+      this.panId = panId;
+    }
+    @Override
+    public String uuid() { throw new UnsupportedOperationException(); }
+    @Override
+    public String name() { throw new UnsupportedOperationException(); }
+    @Override
+    public String email() { throw new UnsupportedOperationException(); }
+    @Override
+    public Optional<String> phone() { throw new UnsupportedOperationException(); }
+    @Override
+    public String password() { throw new UnsupportedOperationException(); }
+    @Override
+    public String aadharId() { throw new UnsupportedOperationException(); }
+    @Override
+    public String panId() { throw new UnsupportedOperationException(); }
+  }
+
+  /**
+   * @param json A JSON-bindable data structure
+   * @return An immutable value type
+   * @deprecated Do not use this method directly, it exists only for the <em>Jackson</em>-binding infrastructure
+   */
+  @Deprecated
+  @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
+  static ImmutableUser fromJson(Json json) {
+    ImmutableUser.Builder builder = ImmutableUser.builder();
+    if (json.uuid != null) {
+      builder.uuid(json.uuid);
+    }
+    if (json.name != null) {
+      builder.name(json.name);
+    }
+    if (json.email != null) {
+      builder.email(json.email);
+    }
+    if (json.phone != null) {
+      builder.phone(json.phone);
+    }
+    if (json.password != null) {
+      builder.password(json.password);
+    }
+    if (json.aadharId != null) {
+      builder.aadharId(json.aadharId);
+    }
+    if (json.panId != null) {
+      builder.panId(json.panId);
+    }
+    return builder.build();
+  }
+
+  /**
    * Creates an immutable copy of a {@link User} value.
    * Uses accessors to get values to initialize the new immutable instance.
    * If an instance is already immutable, it is returned as is.
@@ -343,6 +448,7 @@ public final class ImmutableUser implements User {
      * @return {@code this} builder for use in a chained invocation
      */
     @CanIgnoreReturnValue 
+    @JsonProperty
     public final Builder uuid(String uuid) {
       this.uuid = Objects.requireNonNull(uuid, "uuid");
       initBits &= ~INIT_BIT_UUID;
@@ -355,6 +461,7 @@ public final class ImmutableUser implements User {
      * @return {@code this} builder for use in a chained invocation
      */
     @CanIgnoreReturnValue 
+    @JsonProperty
     public final Builder name(String name) {
       this.name = Objects.requireNonNull(name, "name");
       initBits &= ~INIT_BIT_NAME;
@@ -367,6 +474,7 @@ public final class ImmutableUser implements User {
      * @return {@code this} builder for use in a chained invocation
      */
     @CanIgnoreReturnValue 
+    @JsonProperty
     public final Builder email(String email) {
       this.email = Objects.requireNonNull(email, "email");
       initBits &= ~INIT_BIT_EMAIL;
@@ -390,6 +498,7 @@ public final class ImmutableUser implements User {
      * @return {@code this} builder for use in a chained invocation
      */
     @CanIgnoreReturnValue 
+    @JsonProperty
     public final Builder phone(Optional<String> phone) {
       this.phone = phone.orElse(null);
       return this;
@@ -401,6 +510,7 @@ public final class ImmutableUser implements User {
      * @return {@code this} builder for use in a chained invocation
      */
     @CanIgnoreReturnValue 
+    @JsonProperty
     public final Builder password(String password) {
       this.password = Objects.requireNonNull(password, "password");
       initBits &= ~INIT_BIT_PASSWORD;
@@ -413,6 +523,7 @@ public final class ImmutableUser implements User {
      * @return {@code this} builder for use in a chained invocation
      */
     @CanIgnoreReturnValue 
+    @JsonProperty
     public final Builder aadharId(String aadharId) {
       this.aadharId = Objects.requireNonNull(aadharId, "aadharId");
       initBits &= ~INIT_BIT_AADHAR_ID;
@@ -425,6 +536,7 @@ public final class ImmutableUser implements User {
      * @return {@code this} builder for use in a chained invocation
      */
     @CanIgnoreReturnValue 
+    @JsonProperty
     public final Builder panId(String panId) {
       this.panId = Objects.requireNonNull(panId, "panId");
       initBits &= ~INIT_BIT_PAN_ID;

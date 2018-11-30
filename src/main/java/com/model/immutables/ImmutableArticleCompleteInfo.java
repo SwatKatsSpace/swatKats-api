@@ -1,5 +1,9 @@
 package com.model.immutables;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.common.base.MoreObjects;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import com.google.errorprone.annotations.Var;
@@ -11,6 +15,8 @@ import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 import javax.annotation.concurrent.Immutable;
 import javax.annotation.concurrent.NotThreadSafe;
+
+import com.model.*;
 import org.immutables.value.Generated;
 
 /**
@@ -45,6 +51,7 @@ public final class ImmutableArticleCompleteInfo implements ArticleCompleteInfo {
   /**
    * @return The value of the {@code article} attribute
    */
+  @JsonProperty
   @Override
   public Article article() {
     return article;
@@ -53,6 +60,7 @@ public final class ImmutableArticleCompleteInfo implements ArticleCompleteInfo {
   /**
    * @return The value of the {@code articleDetails} attribute
    */
+  @JsonProperty
   @Override
   public ArticleDetails articleDetails() {
     return articleDetails;
@@ -61,6 +69,7 @@ public final class ImmutableArticleCompleteInfo implements ArticleCompleteInfo {
   /**
    * @return The value of the {@code articleFinanceDetails} attribute
    */
+  @JsonProperty
   @Override
   public ArticleFinanceDetails articleFinanceDetails() {
     return articleFinanceDetails;
@@ -69,6 +78,7 @@ public final class ImmutableArticleCompleteInfo implements ArticleCompleteInfo {
   /**
    * @return The value of the {@code articleMetadata} attribute
    */
+  @JsonProperty
   @Override
   public ArticleMetadata articleMetadata() {
     return articleMetadata;
@@ -170,6 +180,70 @@ public final class ImmutableArticleCompleteInfo implements ArticleCompleteInfo {
   }
 
   /**
+   * Utility type used to correctly read immutable object from JSON representation.
+   * @deprecated Do not use this type directly, it exists only for the <em>Jackson</em>-binding infrastructure
+   */
+  @Generated(from = "ArticleCompleteInfo", generator = "Immutables")
+  @Deprecated
+  @SuppressWarnings("Immutable")
+  @JsonDeserialize
+  @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.NONE)
+  static final class Json implements ArticleCompleteInfo {
+    @Nullable Article article;
+    @Nullable ArticleDetails articleDetails;
+    @Nullable ArticleFinanceDetails articleFinanceDetails;
+    @Nullable ArticleMetadata articleMetadata;
+    @JsonProperty
+    public void setArticle(Article article) {
+      this.article = article;
+    }
+    @JsonProperty
+    public void setArticleDetails(ArticleDetails articleDetails) {
+      this.articleDetails = articleDetails;
+    }
+    @JsonProperty
+    public void setArticleFinanceDetails(ArticleFinanceDetails articleFinanceDetails) {
+      this.articleFinanceDetails = articleFinanceDetails;
+    }
+    @JsonProperty
+    public void setArticleMetadata(ArticleMetadata articleMetadata) {
+      this.articleMetadata = articleMetadata;
+    }
+    @Override
+    public Article article() { throw new UnsupportedOperationException(); }
+    @Override
+    public ArticleDetails articleDetails() { throw new UnsupportedOperationException(); }
+    @Override
+    public ArticleFinanceDetails articleFinanceDetails() { throw new UnsupportedOperationException(); }
+    @Override
+    public ArticleMetadata articleMetadata() { throw new UnsupportedOperationException(); }
+  }
+
+  /**
+   * @param json A JSON-bindable data structure
+   * @return An immutable value type
+   * @deprecated Do not use this method directly, it exists only for the <em>Jackson</em>-binding infrastructure
+   */
+  @Deprecated
+  @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
+  static ImmutableArticleCompleteInfo fromJson(Json json) {
+    ImmutableArticleCompleteInfo.Builder builder = ImmutableArticleCompleteInfo.builder();
+    if (json.article != null) {
+      builder.article(json.article);
+    }
+    if (json.articleDetails != null) {
+      builder.articleDetails(json.articleDetails);
+    }
+    if (json.articleFinanceDetails != null) {
+      builder.articleFinanceDetails(json.articleFinanceDetails);
+    }
+    if (json.articleMetadata != null) {
+      builder.articleMetadata(json.articleMetadata);
+    }
+    return builder.build();
+  }
+
+  /**
    * Creates an immutable copy of a {@link ArticleCompleteInfo} value.
    * Uses accessors to get values to initialize the new immutable instance.
    * If an instance is already immutable, it is returned as is.
@@ -240,6 +314,7 @@ public final class ImmutableArticleCompleteInfo implements ArticleCompleteInfo {
      * @return {@code this} builder for use in a chained invocation
      */
     @CanIgnoreReturnValue 
+    @JsonProperty
     public final Builder article(Article article) {
       this.article = Objects.requireNonNull(article, "article");
       initBits &= ~INIT_BIT_ARTICLE;
@@ -252,6 +327,7 @@ public final class ImmutableArticleCompleteInfo implements ArticleCompleteInfo {
      * @return {@code this} builder for use in a chained invocation
      */
     @CanIgnoreReturnValue 
+    @JsonProperty
     public final Builder articleDetails(ArticleDetails articleDetails) {
       this.articleDetails = Objects.requireNonNull(articleDetails, "articleDetails");
       initBits &= ~INIT_BIT_ARTICLE_DETAILS;
@@ -264,6 +340,7 @@ public final class ImmutableArticleCompleteInfo implements ArticleCompleteInfo {
      * @return {@code this} builder for use in a chained invocation
      */
     @CanIgnoreReturnValue 
+    @JsonProperty
     public final Builder articleFinanceDetails(ArticleFinanceDetails articleFinanceDetails) {
       this.articleFinanceDetails = Objects.requireNonNull(articleFinanceDetails, "articleFinanceDetails");
       initBits &= ~INIT_BIT_ARTICLE_FINANCE_DETAILS;
@@ -276,6 +353,7 @@ public final class ImmutableArticleCompleteInfo implements ArticleCompleteInfo {
      * @return {@code this} builder for use in a chained invocation
      */
     @CanIgnoreReturnValue 
+    @JsonProperty
     public final Builder articleMetadata(ArticleMetadata articleMetadata) {
       this.articleMetadata = Objects.requireNonNull(articleMetadata, "articleMetadata");
       initBits &= ~INIT_BIT_ARTICLE_METADATA;

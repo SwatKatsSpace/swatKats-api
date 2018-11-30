@@ -1,5 +1,9 @@
 package com.model.immutables;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.common.base.MoreObjects;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import com.google.errorprone.annotations.Var;
@@ -41,6 +45,7 @@ public final class ImmutableUserCompleInfo implements UserCompleInfo {
   /**
    * @return The value of the {@code user} attribute
    */
+  @JsonProperty
   @Override
   public User user() {
     return user;
@@ -49,6 +54,7 @@ public final class ImmutableUserCompleInfo implements UserCompleInfo {
   /**
    * @return The value of the {@code userDetails} attribute
    */
+  @JsonProperty
   @Override
   public UserDetails userDetails() {
     return userDetails;
@@ -120,6 +126,50 @@ public final class ImmutableUserCompleInfo implements UserCompleInfo {
   }
 
   /**
+   * Utility type used to correctly read immutable object from JSON representation.
+   * @deprecated Do not use this type directly, it exists only for the <em>Jackson</em>-binding infrastructure
+   */
+  @Generated(from = "UserCompleInfo", generator = "Immutables")
+  @Deprecated
+  @SuppressWarnings("Immutable")
+  @JsonDeserialize
+  @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.NONE)
+  static final class Json implements UserCompleInfo {
+    @Nullable User user;
+    @Nullable UserDetails userDetails;
+    @JsonProperty
+    public void setUser(User user) {
+      this.user = user;
+    }
+    @JsonProperty
+    public void setUserDetails(UserDetails userDetails) {
+      this.userDetails = userDetails;
+    }
+    @Override
+    public User user() { throw new UnsupportedOperationException(); }
+    @Override
+    public UserDetails userDetails() { throw new UnsupportedOperationException(); }
+  }
+
+  /**
+   * @param json A JSON-bindable data structure
+   * @return An immutable value type
+   * @deprecated Do not use this method directly, it exists only for the <em>Jackson</em>-binding infrastructure
+   */
+  @Deprecated
+  @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
+  static ImmutableUserCompleInfo fromJson(Json json) {
+    ImmutableUserCompleInfo.Builder builder = ImmutableUserCompleInfo.builder();
+    if (json.user != null) {
+      builder.user(json.user);
+    }
+    if (json.userDetails != null) {
+      builder.userDetails(json.userDetails);
+    }
+    return builder.build();
+  }
+
+  /**
    * Creates an immutable copy of a {@link UserCompleInfo} value.
    * Uses accessors to get values to initialize the new immutable instance.
    * If an instance is already immutable, it is returned as is.
@@ -184,6 +234,7 @@ public final class ImmutableUserCompleInfo implements UserCompleInfo {
      * @return {@code this} builder for use in a chained invocation
      */
     @CanIgnoreReturnValue 
+    @JsonProperty
     public final Builder user(User user) {
       this.user = Objects.requireNonNull(user, "user");
       initBits &= ~INIT_BIT_USER;
@@ -196,6 +247,7 @@ public final class ImmutableUserCompleInfo implements UserCompleInfo {
      * @return {@code this} builder for use in a chained invocation
      */
     @CanIgnoreReturnValue 
+    @JsonProperty
     public final Builder userDetails(UserDetails userDetails) {
       this.userDetails = Objects.requireNonNull(userDetails, "userDetails");
       initBits &= ~INIT_BIT_USER_DETAILS;

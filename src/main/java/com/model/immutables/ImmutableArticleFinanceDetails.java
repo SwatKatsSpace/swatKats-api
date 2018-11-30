@@ -1,5 +1,9 @@
 package com.model.immutables;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.common.base.MoreObjects;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import com.google.errorprone.annotations.Var;
@@ -50,6 +54,7 @@ public final class ImmutableArticleFinanceDetails implements ArticleFinanceDetai
   /**
    * @return The value of the {@code uuid} attribute
    */
+  @JsonProperty
   @Override
   public String uuid() {
     return uuid;
@@ -58,6 +63,7 @@ public final class ImmutableArticleFinanceDetails implements ArticleFinanceDetai
   /**
    * @return The value of the {@code bankAccountNumber} attribute
    */
+  @JsonProperty
   @Override
   public String bankAccountNumber() {
     return bankAccountNumber;
@@ -66,6 +72,7 @@ public final class ImmutableArticleFinanceDetails implements ArticleFinanceDetai
   /**
    * @return The value of the {@code ifscCode} attribute
    */
+  @JsonProperty
   @Override
   public String ifscCode() {
     return ifscCode;
@@ -74,6 +81,7 @@ public final class ImmutableArticleFinanceDetails implements ArticleFinanceDetai
   /**
    * @return The value of the {@code bankName} attribute
    */
+  @JsonProperty
   @Override
   public String bankName() {
     return bankName;
@@ -82,6 +90,7 @@ public final class ImmutableArticleFinanceDetails implements ArticleFinanceDetai
   /**
    * @return The value of the {@code nameOnAccount} attribute
    */
+  @JsonProperty
   @Override
   public String nameOnAccount() {
     return nameOnAccount;
@@ -198,6 +207,80 @@ public final class ImmutableArticleFinanceDetails implements ArticleFinanceDetai
   }
 
   /**
+   * Utility type used to correctly read immutable object from JSON representation.
+   * @deprecated Do not use this type directly, it exists only for the <em>Jackson</em>-binding infrastructure
+   */
+  @Generated(from = "ArticleFinanceDetails", generator = "Immutables")
+  @Deprecated
+  @SuppressWarnings("Immutable")
+  @JsonDeserialize
+  @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.NONE)
+  static final class Json implements ArticleFinanceDetails {
+    @Nullable String uuid;
+    @Nullable String bankAccountNumber;
+    @Nullable String ifscCode;
+    @Nullable String bankName;
+    @Nullable String nameOnAccount;
+    @JsonProperty
+    public void setUuid(String uuid) {
+      this.uuid = uuid;
+    }
+    @JsonProperty
+    public void setBankAccountNumber(String bankAccountNumber) {
+      this.bankAccountNumber = bankAccountNumber;
+    }
+    @JsonProperty
+    public void setIfscCode(String ifscCode) {
+      this.ifscCode = ifscCode;
+    }
+    @JsonProperty
+    public void setBankName(String bankName) {
+      this.bankName = bankName;
+    }
+    @JsonProperty
+    public void setNameOnAccount(String nameOnAccount) {
+      this.nameOnAccount = nameOnAccount;
+    }
+    @Override
+    public String uuid() { throw new UnsupportedOperationException(); }
+    @Override
+    public String bankAccountNumber() { throw new UnsupportedOperationException(); }
+    @Override
+    public String ifscCode() { throw new UnsupportedOperationException(); }
+    @Override
+    public String bankName() { throw new UnsupportedOperationException(); }
+    @Override
+    public String nameOnAccount() { throw new UnsupportedOperationException(); }
+  }
+
+  /**
+   * @param json A JSON-bindable data structure
+   * @return An immutable value type
+   * @deprecated Do not use this method directly, it exists only for the <em>Jackson</em>-binding infrastructure
+   */
+  @Deprecated
+  @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
+  static ImmutableArticleFinanceDetails fromJson(Json json) {
+    ImmutableArticleFinanceDetails.Builder builder = ImmutableArticleFinanceDetails.builder();
+    if (json.uuid != null) {
+      builder.uuid(json.uuid);
+    }
+    if (json.bankAccountNumber != null) {
+      builder.bankAccountNumber(json.bankAccountNumber);
+    }
+    if (json.ifscCode != null) {
+      builder.ifscCode(json.ifscCode);
+    }
+    if (json.bankName != null) {
+      builder.bankName(json.bankName);
+    }
+    if (json.nameOnAccount != null) {
+      builder.nameOnAccount(json.nameOnAccount);
+    }
+    return builder.build();
+  }
+
+  /**
    * Creates an immutable copy of a {@link ArticleFinanceDetails} value.
    * Uses accessors to get values to initialize the new immutable instance.
    * If an instance is already immutable, it is returned as is.
@@ -271,6 +354,7 @@ public final class ImmutableArticleFinanceDetails implements ArticleFinanceDetai
      * @return {@code this} builder for use in a chained invocation
      */
     @CanIgnoreReturnValue 
+    @JsonProperty
     public final Builder uuid(String uuid) {
       this.uuid = Objects.requireNonNull(uuid, "uuid");
       initBits &= ~INIT_BIT_UUID;
@@ -283,6 +367,7 @@ public final class ImmutableArticleFinanceDetails implements ArticleFinanceDetai
      * @return {@code this} builder for use in a chained invocation
      */
     @CanIgnoreReturnValue 
+    @JsonProperty
     public final Builder bankAccountNumber(String bankAccountNumber) {
       this.bankAccountNumber = Objects.requireNonNull(bankAccountNumber, "bankAccountNumber");
       initBits &= ~INIT_BIT_BANK_ACCOUNT_NUMBER;
@@ -295,6 +380,7 @@ public final class ImmutableArticleFinanceDetails implements ArticleFinanceDetai
      * @return {@code this} builder for use in a chained invocation
      */
     @CanIgnoreReturnValue 
+    @JsonProperty
     public final Builder ifscCode(String ifscCode) {
       this.ifscCode = Objects.requireNonNull(ifscCode, "ifscCode");
       initBits &= ~INIT_BIT_IFSC_CODE;
@@ -307,6 +393,7 @@ public final class ImmutableArticleFinanceDetails implements ArticleFinanceDetai
      * @return {@code this} builder for use in a chained invocation
      */
     @CanIgnoreReturnValue 
+    @JsonProperty
     public final Builder bankName(String bankName) {
       this.bankName = Objects.requireNonNull(bankName, "bankName");
       initBits &= ~INIT_BIT_BANK_NAME;
@@ -319,6 +406,7 @@ public final class ImmutableArticleFinanceDetails implements ArticleFinanceDetai
      * @return {@code this} builder for use in a chained invocation
      */
     @CanIgnoreReturnValue 
+    @JsonProperty
     public final Builder nameOnAccount(String nameOnAccount) {
       this.nameOnAccount = Objects.requireNonNull(nameOnAccount, "nameOnAccount");
       initBits &= ~INIT_BIT_NAME_ON_ACCOUNT;
