@@ -15,10 +15,10 @@ public class UserMapper implements RowMapper<ImmutableUser> {
                 .uuid(rs.getString("uuid"))
                 .password(rs.getString("password"))
                 .name(rs.getString("name"))
-                .aadharId(rs.getString("aadhar_id"))
+                .aadharId(rs.getString("aadharId"))
                 .email(rs.getString("email"))
                 .phone(rs.getString("phone"))
-                .panId(rs.getString("pan_id"))
+                .panId(rs.getString("panId"))
                 .build();
     }
 }

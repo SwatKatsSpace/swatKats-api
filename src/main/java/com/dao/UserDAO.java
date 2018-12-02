@@ -1,7 +1,6 @@
 package com.dao;
 
 import com.mapper.UserMapper;
-import com.model.User;
 import com.model.immutables.ImmutableUser;
 import org.jdbi.v3.sqlobject.config.RegisterRowMapper;
 import org.jdbi.v3.sqlobject.customizer.Bind;
@@ -14,14 +13,11 @@ import java.util.List;
 @RegisterRowMapper(UserMapper.class)
 public interface UserDAO {
 
-    /*@SqlUpdate("CREATE TABLE Users (Name text, Email text, Phone text, AadharId text, Id text)")
-    Integer create();*/
-
     @SqlUpdate("insert into users (name, email, phone, password, aadhar_id, pan_id) values (:name, :email, :phone, :password, :aadharId, :panId)")
     Integer insert(@Bind("name") String name, @Bind("email") String email, @Bind("phone") String phone, @Bind("password") String password, @Bind("aadharId") String aadharId, @Bind("panId") String panId);
 
     @SqlQuery("select * from users where email = :email or phone = :phone")
-    List<ImmutableUser> findByEmailAndPhone(@Bind("email") String email, @Bind("phone") String phone);
+    ImmutableUser findByEmailAndPhone(@Bind("email") String email, @Bind("phone") String phone);
 
     @SqlQuery("select * from users where email = :email or phone = :phone or aadhar_id = :aadharId")
     List<ImmutableUser> findByEmailAndPhoneAndAadhar(@Bind("email") String email, @Bind("phone") String phone, @Bind("aadharId") String aadharId);
@@ -44,7 +40,6 @@ public interface UserDAO {
     @SqlQuery("select * from users where phone = :phone")
     ImmutableUser findByPhone(@Bind("phone") String phone);
 
-    @SqlQuery("select * from users")
+    @SqlQuery("select uuid, name, email, phone, password, aadhar_id as \"aadharId\", pan_id as \"panId\" from users")
     List<ImmutableUser> getAll();
-
 }

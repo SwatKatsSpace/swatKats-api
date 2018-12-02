@@ -6,10 +6,10 @@ database:
   # the username
   user: postgres
 
-  # the password
+  # the password //root
   password: qwerty
 
-  # the JDBC URL
+  # the JDBC URL //5432
   url: jdbc:postgresql://localhost:5433/swatkats
 
   # any properties specific to your JDBC driver:

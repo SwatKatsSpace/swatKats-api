@@ -24,6 +24,7 @@ public class SwatKatsConfiguration extends Configuration {
     public DataSourceFactory getDataSourceFactory() {
         return database;
     }
+
     //@NotEmpty annotation will assure that application will not start if appName value will be not defined.
     @NotEmpty
     private String appName;
