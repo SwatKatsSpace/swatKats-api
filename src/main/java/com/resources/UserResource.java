@@ -15,7 +15,7 @@ import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
 import java.util.List;
 
-@Path("/swatkats/user")
+@Path("/swatkats/users")
 @Produces(MediaType.APPLICATION_JSON)
 public class UserResource {
     public static final Logger LOGGER = LoggerFactory.getLogger(UserResource.class);
