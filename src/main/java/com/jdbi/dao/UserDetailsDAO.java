@@ -1,9 +1,7 @@
-package com.dao;
+package com.jdbi.dao;
 
-import com.mapper.UserDetailsMapper;
-import com.model.UserCompleInfo;
+import com.jdbi.mapper.UserDetailsMapper;
 import com.model.UserDetails;
-import com.model.immutables.ImmutableUserDetails;
 import org.jdbi.v3.sqlobject.config.RegisterRowMapper;
 import org.jdbi.v3.sqlobject.customizer.Bind;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;

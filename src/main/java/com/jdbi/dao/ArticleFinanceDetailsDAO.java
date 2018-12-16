@@ -1,8 +1,7 @@
-package com.dao;
+package com.jdbi.dao;
 
-import com.mapper.ArticleFinanceDetailsMapper;
+import com.jdbi.mapper.ArticleFinanceDetailsMapper;
 import com.model.ArticleFinanceDetails;
-import com.model.immutables.ImmutableArticleFinanceDetails;
 import org.jdbi.v3.sqlobject.config.RegisterRowMapper;
 import org.jdbi.v3.sqlobject.customizer.Bind;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;

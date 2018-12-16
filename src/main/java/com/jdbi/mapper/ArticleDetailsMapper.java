@@ -1,4 +1,4 @@
-package com.mapper;
+package com.jdbi.mapper;
 
 import com.model.immutables.ImmutableArticleDetails;
 import org.jdbi.v3.core.mapper.RowMapper;

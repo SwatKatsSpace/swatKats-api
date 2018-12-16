@@ -1,8 +1,7 @@
-package com.dao;
+package com.jdbi.dao;
 
-import com.mapper.ArticleMetadataMapper;
+import com.jdbi.mapper.ArticleMetadataMapper;
 import com.model.ArticleMetadata;
-import com.model.immutables.ImmutableArticleMetadata;
 import org.jdbi.v3.sqlobject.config.RegisterRowMapper;
 import org.jdbi.v3.sqlobject.customizer.Bind;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;

@@ -1,6 +1,6 @@
-package com.dao;
+package com.jdbi.dao;
 
-import com.mapper.UserCompleteInfoMapper;
+import com.jdbi.mapper.UserCompleteInfoMapper;
 import com.model.UserCompleInfo;
 import org.jdbi.v3.sqlobject.config.RegisterRowMapper;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
