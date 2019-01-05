@@ -4,13 +4,13 @@ import com.model.User;
 import com.service.UserService;
 
 import javax.inject.Inject;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
-@Path("/users")
+@Path("users")
 @Produces(MediaType.APPLICATION_JSON)
 public class UsersResource {
 
@@ -19,10 +19,33 @@ public class UsersResource {
 
 
     @GET
-    public List<User> getAllUsers() {
+    public List<User> getUserList() {
         return userService.getUserList();
-
     }
+
+    @GET
+    @Path("user/{userUuid}")
+    public User getUser(@PathParam("userUuid") Optional<UUID> userUuid) {
+        return userService.getUserByUuid(userUuid.get());
+    }
+
+    @GET
+    @Path("user")
+    public User getUser(@QueryParam("email") Optional<String> email, @QueryParam("aadharId") Optional<String> aadharId) {
+        if (aadharId.isPresent()) {
+            return userService.getUserByAadharId(aadharId.get());
+        }
+        if (email.isPresent()) {
+            return userService.getUserByEmail(email.get());
+        }
+        return null;
+    }
+
+//    @GET
+//    @Path("/")
+//    public User getUserByUuid(@QueryParam("email") String email) {
+//        return userService.getUserByEmail(email);
+//    }
 
 //    @POST
 //    @Consumes(MediaType.APPLICATION_JSON)

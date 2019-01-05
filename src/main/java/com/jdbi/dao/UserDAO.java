@@ -11,6 +11,7 @@ import ru.vyarus.guicey.jdbi3.installer.repository.JdbiRepository;
 import ru.vyarus.guicey.jdbi3.tx.InTransaction;
 
 import java.util.List;
+import java.util.UUID;
 
 @JdbiRepository
 @InTransaction
@@ -46,4 +47,13 @@ public interface UserDAO {
 
     @SqlQuery("select uuid, name, email, phone, password, aadhar_id as \"aadharId\", pan_id as \"panId\" from users")
     List<User> getUserList();
+
+    @SqlQuery("select uuid, name, email, phone, password, aadhar_id as \"aadharId\", pan_id as \"panId\" from users where uuid = :uuid")
+    User getUserByUuid(@Bind("uuid") UUID uuid);
+
+    @SqlQuery("select uuid, name, email, phone, password, aadhar_id as \"aadharId\", pan_id as \"panId\" from users where email = :email")
+    User getUserByEmail(@Bind("email") String email);
+
+    @SqlQuery("select uuid, name, email, phone, password, aadhar_id as \"aadharId\", pan_id as \"panId\" from users where aadhar_id = :aadharId")
+    User getUserByAadharId(@Bind("aadharId") String aadharId);
 }
