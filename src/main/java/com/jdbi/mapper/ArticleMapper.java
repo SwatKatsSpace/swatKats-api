@@ -1,5 +1,6 @@
 package com.jdbi.mapper;
 
+import com.model.Article;
 import com.model.immutables.ImmutableArticle;
 import org.jdbi.v3.core.mapper.RowMapper;
 import org.jdbi.v3.core.statement.StatementContext;
@@ -7,11 +8,12 @@ import org.jdbi.v3.core.statement.StatementContext;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class ArticleMapper implements RowMapper<ImmutableArticle> {
+public class ArticleMapper implements RowMapper<Article> {
 
     @Override
-    public ImmutableArticle map(ResultSet rs, StatementContext ctx) throws SQLException {
+    public Article map(ResultSet rs, StatementContext ctx) throws SQLException {
         return ImmutableArticle.builder()
+                .uuid(rs.getString("uuid"))
                 .aadharId(rs.getString("aadhar_id"))
                 .email(rs.getString("email"))
                 .name(rs.getString("name"))
