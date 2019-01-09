@@ -34,25 +34,40 @@ import org.immutables.value.Generated;
 @CheckReturnValue
 public final class ImmutableArticle implements Article {
   private final String uuid;
-  private final String name;
+  private final String firstName;
+  private final String lastName;
   private final String email;
   private final @Nullable String phone;
   private final String aadharId;
   private final String panId;
+  private final String image;
+  private final String relation;
+  private final String description;
+  private final String likes;
 
   private ImmutableArticle(
       String uuid,
-      String name,
+      String firstName,
+      String lastName,
       String email,
       @Nullable String phone,
       String aadharId,
-      String panId) {
+      String panId,
+      String image,
+      String relation,
+      String description,
+      String likes) {
     this.uuid = uuid;
-    this.name = name;
+    this.firstName = firstName;
+    this.lastName = lastName;
     this.email = email;
     this.phone = phone;
     this.aadharId = aadharId;
     this.panId = panId;
+    this.image = image;
+    this.relation = relation;
+    this.description = description;
+    this.likes = likes;
   }
 
   /**
@@ -65,12 +80,21 @@ public final class ImmutableArticle implements Article {
   }
 
   /**
-   * @return The value of the {@code name} attribute
+   * @return The value of the {@code firstName} attribute
    */
   @JsonProperty
   @Override
-  public String name() {
-    return name;
+  public String firstName() {
+    return firstName;
+  }
+
+  /**
+   * @return The value of the {@code lastName} attribute
+   */
+  @JsonProperty
+  @Override
+  public String lastName() {
+    return lastName;
   }
 
   /**
@@ -110,6 +134,42 @@ public final class ImmutableArticle implements Article {
   }
 
   /**
+   * @return The value of the {@code image} attribute
+   */
+  @JsonProperty
+  @Override
+  public String image() {
+    return image;
+  }
+
+  /**
+   * @return The value of the {@code relation} attribute
+   */
+  @JsonProperty
+  @Override
+  public String relation() {
+    return relation;
+  }
+
+  /**
+   * @return The value of the {@code description} attribute
+   */
+  @JsonProperty
+  @Override
+  public String description() {
+    return description;
+  }
+
+  /**
+   * @return The value of the {@code likes} attribute
+   */
+  @JsonProperty
+  @Override
+  public String likes() {
+    return likes;
+  }
+
+  /**
    * Copy the current immutable object by setting a value for the {@link Article#uuid() uuid} attribute.
    * An equals check used to prevent copying of the same value by returning {@code this}.
    * @param value A new value for uuid
@@ -118,19 +178,64 @@ public final class ImmutableArticle implements Article {
   public final ImmutableArticle withUuid(String value) {
     String newValue = Objects.requireNonNull(value, "uuid");
     if (this.uuid.equals(newValue)) return this;
-    return new ImmutableArticle(newValue, this.name, this.email, this.phone, this.aadharId, this.panId);
+    return new ImmutableArticle(
+        newValue,
+        this.firstName,
+        this.lastName,
+        this.email,
+        this.phone,
+        this.aadharId,
+        this.panId,
+        this.image,
+        this.relation,
+        this.description,
+        this.likes);
   }
 
   /**
-   * Copy the current immutable object by setting a value for the {@link Article#name() name} attribute.
+   * Copy the current immutable object by setting a value for the {@link Article#firstName() firstName} attribute.
    * An equals check used to prevent copying of the same value by returning {@code this}.
-   * @param value A new value for name
+   * @param value A new value for firstName
    * @return A modified copy of the {@code this} object
    */
-  public final ImmutableArticle withName(String value) {
-    String newValue = Objects.requireNonNull(value, "name");
-    if (this.name.equals(newValue)) return this;
-    return new ImmutableArticle(this.uuid, newValue, this.email, this.phone, this.aadharId, this.panId);
+  public final ImmutableArticle withFirstName(String value) {
+    String newValue = Objects.requireNonNull(value, "firstName");
+    if (this.firstName.equals(newValue)) return this;
+    return new ImmutableArticle(
+        this.uuid,
+        newValue,
+        this.lastName,
+        this.email,
+        this.phone,
+        this.aadharId,
+        this.panId,
+        this.image,
+        this.relation,
+        this.description,
+        this.likes);
+  }
+
+  /**
+   * Copy the current immutable object by setting a value for the {@link Article#lastName() lastName} attribute.
+   * An equals check used to prevent copying of the same value by returning {@code this}.
+   * @param value A new value for lastName
+   * @return A modified copy of the {@code this} object
+   */
+  public final ImmutableArticle withLastName(String value) {
+    String newValue = Objects.requireNonNull(value, "lastName");
+    if (this.lastName.equals(newValue)) return this;
+    return new ImmutableArticle(
+        this.uuid,
+        this.firstName,
+        newValue,
+        this.email,
+        this.phone,
+        this.aadharId,
+        this.panId,
+        this.image,
+        this.relation,
+        this.description,
+        this.likes);
   }
 
   /**
@@ -142,7 +247,18 @@ public final class ImmutableArticle implements Article {
   public final ImmutableArticle withEmail(String value) {
     String newValue = Objects.requireNonNull(value, "email");
     if (this.email.equals(newValue)) return this;
-    return new ImmutableArticle(this.uuid, this.name, newValue, this.phone, this.aadharId, this.panId);
+    return new ImmutableArticle(
+        this.uuid,
+        this.firstName,
+        this.lastName,
+        newValue,
+        this.phone,
+        this.aadharId,
+        this.panId,
+        this.image,
+        this.relation,
+        this.description,
+        this.likes);
   }
 
   /**
@@ -153,7 +269,18 @@ public final class ImmutableArticle implements Article {
   public final ImmutableArticle withPhone(String value) {
     @Nullable String newValue = Objects.requireNonNull(value, "phone");
     if (Objects.equals(this.phone, newValue)) return this;
-    return new ImmutableArticle(this.uuid, this.name, this.email, newValue, this.aadharId, this.panId);
+    return new ImmutableArticle(
+        this.uuid,
+        this.firstName,
+        this.lastName,
+        this.email,
+        newValue,
+        this.aadharId,
+        this.panId,
+        this.image,
+        this.relation,
+        this.description,
+        this.likes);
   }
 
   /**
@@ -165,7 +292,18 @@ public final class ImmutableArticle implements Article {
   public final ImmutableArticle withPhone(Optional<String> optional) {
     @Nullable String value = optional.orElse(null);
     if (Objects.equals(this.phone, value)) return this;
-    return new ImmutableArticle(this.uuid, this.name, this.email, value, this.aadharId, this.panId);
+    return new ImmutableArticle(
+        this.uuid,
+        this.firstName,
+        this.lastName,
+        this.email,
+        value,
+        this.aadharId,
+        this.panId,
+        this.image,
+        this.relation,
+        this.description,
+        this.likes);
   }
 
   /**
@@ -177,7 +315,18 @@ public final class ImmutableArticle implements Article {
   public final ImmutableArticle withAadharId(String value) {
     String newValue = Objects.requireNonNull(value, "aadharId");
     if (this.aadharId.equals(newValue)) return this;
-    return new ImmutableArticle(this.uuid, this.name, this.email, this.phone, newValue, this.panId);
+    return new ImmutableArticle(
+        this.uuid,
+        this.firstName,
+        this.lastName,
+        this.email,
+        this.phone,
+        newValue,
+        this.panId,
+        this.image,
+        this.relation,
+        this.description,
+        this.likes);
   }
 
   /**
@@ -189,7 +338,110 @@ public final class ImmutableArticle implements Article {
   public final ImmutableArticle withPanId(String value) {
     String newValue = Objects.requireNonNull(value, "panId");
     if (this.panId.equals(newValue)) return this;
-    return new ImmutableArticle(this.uuid, this.name, this.email, this.phone, this.aadharId, newValue);
+    return new ImmutableArticle(
+        this.uuid,
+        this.firstName,
+        this.lastName,
+        this.email,
+        this.phone,
+        this.aadharId,
+        newValue,
+        this.image,
+        this.relation,
+        this.description,
+        this.likes);
+  }
+
+  /**
+   * Copy the current immutable object by setting a value for the {@link Article#image() image} attribute.
+   * An equals check used to prevent copying of the same value by returning {@code this}.
+   * @param value A new value for image
+   * @return A modified copy of the {@code this} object
+   */
+  public final ImmutableArticle withImage(String value) {
+    String newValue = Objects.requireNonNull(value, "image");
+    if (this.image.equals(newValue)) return this;
+    return new ImmutableArticle(
+        this.uuid,
+        this.firstName,
+        this.lastName,
+        this.email,
+        this.phone,
+        this.aadharId,
+        this.panId,
+        newValue,
+        this.relation,
+        this.description,
+        this.likes);
+  }
+
+  /**
+   * Copy the current immutable object by setting a value for the {@link Article#relation() relation} attribute.
+   * An equals check used to prevent copying of the same value by returning {@code this}.
+   * @param value A new value for relation
+   * @return A modified copy of the {@code this} object
+   */
+  public final ImmutableArticle withRelation(String value) {
+    String newValue = Objects.requireNonNull(value, "relation");
+    if (this.relation.equals(newValue)) return this;
+    return new ImmutableArticle(
+        this.uuid,
+        this.firstName,
+        this.lastName,
+        this.email,
+        this.phone,
+        this.aadharId,
+        this.panId,
+        this.image,
+        newValue,
+        this.description,
+        this.likes);
+  }
+
+  /**
+   * Copy the current immutable object by setting a value for the {@link Article#description() description} attribute.
+   * An equals check used to prevent copying of the same value by returning {@code this}.
+   * @param value A new value for description
+   * @return A modified copy of the {@code this} object
+   */
+  public final ImmutableArticle withDescription(String value) {
+    String newValue = Objects.requireNonNull(value, "description");
+    if (this.description.equals(newValue)) return this;
+    return new ImmutableArticle(
+        this.uuid,
+        this.firstName,
+        this.lastName,
+        this.email,
+        this.phone,
+        this.aadharId,
+        this.panId,
+        this.image,
+        this.relation,
+        newValue,
+        this.likes);
+  }
+
+  /**
+   * Copy the current immutable object by setting a value for the {@link Article#likes() likes} attribute.
+   * An equals check used to prevent copying of the same value by returning {@code this}.
+   * @param value A new value for likes
+   * @return A modified copy of the {@code this} object
+   */
+  public final ImmutableArticle withLikes(String value) {
+    String newValue = Objects.requireNonNull(value, "likes");
+    if (this.likes.equals(newValue)) return this;
+    return new ImmutableArticle(
+        this.uuid,
+        this.firstName,
+        this.lastName,
+        this.email,
+        this.phone,
+        this.aadharId,
+        this.panId,
+        this.image,
+        this.relation,
+        this.description,
+        newValue);
   }
 
   /**
@@ -205,26 +457,36 @@ public final class ImmutableArticle implements Article {
 
   private boolean equalTo(ImmutableArticle another) {
     return uuid.equals(another.uuid)
-        && name.equals(another.name)
+        && firstName.equals(another.firstName)
+        && lastName.equals(another.lastName)
         && email.equals(another.email)
         && Objects.equals(phone, another.phone)
         && aadharId.equals(another.aadharId)
-        && panId.equals(another.panId);
+        && panId.equals(another.panId)
+        && image.equals(another.image)
+        && relation.equals(another.relation)
+        && description.equals(another.description)
+        && likes.equals(another.likes);
   }
 
   /**
-   * Computes a hash code from attributes: {@code uuid}, {@code name}, {@code email}, {@code phone}, {@code aadharId}, {@code panId}.
+   * Computes a hash code from attributes: {@code uuid}, {@code firstName}, {@code lastName}, {@code email}, {@code phone}, {@code aadharId}, {@code panId}, {@code image}, {@code relation}, {@code description}, {@code likes}.
    * @return hashCode value
    */
   @Override
   public int hashCode() {
     @Var int h = 5381;
     h += (h << 5) + uuid.hashCode();
-    h += (h << 5) + name.hashCode();
+    h += (h << 5) + firstName.hashCode();
+    h += (h << 5) + lastName.hashCode();
     h += (h << 5) + email.hashCode();
     h += (h << 5) + Objects.hashCode(phone);
     h += (h << 5) + aadharId.hashCode();
     h += (h << 5) + panId.hashCode();
+    h += (h << 5) + image.hashCode();
+    h += (h << 5) + relation.hashCode();
+    h += (h << 5) + description.hashCode();
+    h += (h << 5) + likes.hashCode();
     return h;
   }
 
@@ -237,11 +499,16 @@ public final class ImmutableArticle implements Article {
     return MoreObjects.toStringHelper("Article")
         .omitNullValues()
         .add("uuid", uuid)
-        .add("name", name)
+        .add("firstName", firstName)
+        .add("lastName", lastName)
         .add("email", email)
         .add("phone", phone)
         .add("aadharId", aadharId)
         .add("panId", panId)
+        .add("image", image)
+        .add("relation", relation)
+        .add("description", description)
+        .add("likes", likes)
         .toString();
   }
 
@@ -256,18 +523,27 @@ public final class ImmutableArticle implements Article {
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.NONE)
   static final class Json implements Article {
     @Nullable String uuid;
-    @Nullable String name;
+    @Nullable String firstName;
+    @Nullable String lastName;
     @Nullable String email;
     @Nullable Optional<String> phone = Optional.empty();
     @Nullable String aadharId;
     @Nullable String panId;
+    @Nullable String image;
+    @Nullable String relation;
+    @Nullable String description;
+    @Nullable String likes;
     @JsonProperty
     public void setUuid(String uuid) {
       this.uuid = uuid;
     }
     @JsonProperty
-    public void setName(String name) {
-      this.name = name;
+    public void setFirstName(String firstName) {
+      this.firstName = firstName;
+    }
+    @JsonProperty
+    public void setLastName(String lastName) {
+      this.lastName = lastName;
     }
     @JsonProperty
     public void setEmail(String email) {
@@ -285,10 +561,28 @@ public final class ImmutableArticle implements Article {
     public void setPanId(String panId) {
       this.panId = panId;
     }
+    @JsonProperty
+    public void setImage(String image) {
+      this.image = image;
+    }
+    @JsonProperty
+    public void setRelation(String relation) {
+      this.relation = relation;
+    }
+    @JsonProperty
+    public void setDescription(String description) {
+      this.description = description;
+    }
+    @JsonProperty
+    public void setLikes(String likes) {
+      this.likes = likes;
+    }
     @Override
     public String uuid() { throw new UnsupportedOperationException(); }
     @Override
-    public String name() { throw new UnsupportedOperationException(); }
+    public String firstName() { throw new UnsupportedOperationException(); }
+    @Override
+    public String lastName() { throw new UnsupportedOperationException(); }
     @Override
     public String email() { throw new UnsupportedOperationException(); }
     @Override
@@ -297,6 +591,14 @@ public final class ImmutableArticle implements Article {
     public String aadharId() { throw new UnsupportedOperationException(); }
     @Override
     public String panId() { throw new UnsupportedOperationException(); }
+    @Override
+    public String image() { throw new UnsupportedOperationException(); }
+    @Override
+    public String relation() { throw new UnsupportedOperationException(); }
+    @Override
+    public String description() { throw new UnsupportedOperationException(); }
+    @Override
+    public String likes() { throw new UnsupportedOperationException(); }
   }
 
   /**
@@ -307,12 +609,15 @@ public final class ImmutableArticle implements Article {
   @Deprecated
   @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
   static ImmutableArticle fromJson(Json json) {
-    ImmutableArticle.Builder builder = ImmutableArticle.builder();
+    Builder builder = ImmutableArticle.builder();
     if (json.uuid != null) {
       builder.uuid(json.uuid);
     }
-    if (json.name != null) {
-      builder.name(json.name);
+    if (json.firstName != null) {
+      builder.firstName(json.firstName);
+    }
+    if (json.lastName != null) {
+      builder.lastName(json.lastName);
     }
     if (json.email != null) {
       builder.email(json.email);
@@ -325,6 +630,18 @@ public final class ImmutableArticle implements Article {
     }
     if (json.panId != null) {
       builder.panId(json.panId);
+    }
+    if (json.image != null) {
+      builder.image(json.image);
+    }
+    if (json.relation != null) {
+      builder.relation(json.relation);
+    }
+    if (json.description != null) {
+      builder.description(json.description);
+    }
+    if (json.likes != null) {
+      builder.likes(json.likes);
     }
     return builder.build();
   }
@@ -349,8 +666,8 @@ public final class ImmutableArticle implements Article {
    * Creates a builder for {@link ImmutableArticle ImmutableArticle}.
    * @return A new ImmutableArticle builder
    */
-  public static ImmutableArticle.Builder builder() {
-    return new ImmutableArticle.Builder();
+  public static Builder builder() {
+    return new Builder();
   }
 
   /**
@@ -364,18 +681,28 @@ public final class ImmutableArticle implements Article {
   @NotThreadSafe
   public static final class Builder {
     private static final long INIT_BIT_UUID = 0x1L;
-    private static final long INIT_BIT_NAME = 0x2L;
-    private static final long INIT_BIT_EMAIL = 0x4L;
-    private static final long INIT_BIT_AADHAR_ID = 0x8L;
-    private static final long INIT_BIT_PAN_ID = 0x10L;
-    private long initBits = 0x1fL;
+    private static final long INIT_BIT_FIRST_NAME = 0x2L;
+    private static final long INIT_BIT_LAST_NAME = 0x4L;
+    private static final long INIT_BIT_EMAIL = 0x8L;
+    private static final long INIT_BIT_AADHAR_ID = 0x10L;
+    private static final long INIT_BIT_PAN_ID = 0x20L;
+    private static final long INIT_BIT_IMAGE = 0x40L;
+    private static final long INIT_BIT_RELATION = 0x80L;
+    private static final long INIT_BIT_DESCRIPTION = 0x100L;
+    private static final long INIT_BIT_LIKES = 0x200L;
+    private long initBits = 0x3ffL;
 
     private @Nullable String uuid;
-    private @Nullable String name;
+    private @Nullable String firstName;
+    private @Nullable String lastName;
     private @Nullable String email;
     private @Nullable String phone;
     private @Nullable String aadharId;
     private @Nullable String panId;
+    private @Nullable String image;
+    private @Nullable String relation;
+    private @Nullable String description;
+    private @Nullable String likes;
 
     private Builder() {
     }
@@ -391,7 +718,8 @@ public final class ImmutableArticle implements Article {
     public final Builder from(Article instance) {
       Objects.requireNonNull(instance, "instance");
       uuid(instance.uuid());
-      name(instance.name());
+      firstName(instance.firstName());
+      lastName(instance.lastName());
       email(instance.email());
       Optional<String> phoneOptional = instance.phone();
       if (phoneOptional.isPresent()) {
@@ -399,6 +727,10 @@ public final class ImmutableArticle implements Article {
       }
       aadharId(instance.aadharId());
       panId(instance.panId());
+      image(instance.image());
+      relation(instance.relation());
+      description(instance.description());
+      likes(instance.likes());
       return this;
     }
 
@@ -416,15 +748,28 @@ public final class ImmutableArticle implements Article {
     }
 
     /**
-     * Initializes the value for the {@link Article#name() name} attribute.
-     * @param name The value for name 
+     * Initializes the value for the {@link Article#firstName() firstName} attribute.
+     * @param firstName The value for firstName 
      * @return {@code this} builder for use in a chained invocation
      */
     @CanIgnoreReturnValue 
     @JsonProperty
-    public final Builder name(String name) {
-      this.name = Objects.requireNonNull(name, "name");
-      initBits &= ~INIT_BIT_NAME;
+    public final Builder firstName(String firstName) {
+      this.firstName = Objects.requireNonNull(firstName, "firstName");
+      initBits &= ~INIT_BIT_FIRST_NAME;
+      return this;
+    }
+
+    /**
+     * Initializes the value for the {@link Article#lastName() lastName} attribute.
+     * @param lastName The value for lastName 
+     * @return {@code this} builder for use in a chained invocation
+     */
+    @CanIgnoreReturnValue 
+    @JsonProperty
+    public final Builder lastName(String lastName) {
+      this.lastName = Objects.requireNonNull(lastName, "lastName");
+      initBits &= ~INIT_BIT_LAST_NAME;
       return this;
     }
 
@@ -491,24 +836,81 @@ public final class ImmutableArticle implements Article {
     }
 
     /**
+     * Initializes the value for the {@link Article#image() image} attribute.
+     * @param image The value for image 
+     * @return {@code this} builder for use in a chained invocation
+     */
+    @CanIgnoreReturnValue 
+    @JsonProperty
+    public final Builder image(String image) {
+      this.image = Objects.requireNonNull(image, "image");
+      initBits &= ~INIT_BIT_IMAGE;
+      return this;
+    }
+
+    /**
+     * Initializes the value for the {@link Article#relation() relation} attribute.
+     * @param relation The value for relation 
+     * @return {@code this} builder for use in a chained invocation
+     */
+    @CanIgnoreReturnValue 
+    @JsonProperty
+    public final Builder relation(String relation) {
+      this.relation = Objects.requireNonNull(relation, "relation");
+      initBits &= ~INIT_BIT_RELATION;
+      return this;
+    }
+
+    /**
+     * Initializes the value for the {@link Article#description() description} attribute.
+     * @param description The value for description 
+     * @return {@code this} builder for use in a chained invocation
+     */
+    @CanIgnoreReturnValue 
+    @JsonProperty
+    public final Builder description(String description) {
+      this.description = Objects.requireNonNull(description, "description");
+      initBits &= ~INIT_BIT_DESCRIPTION;
+      return this;
+    }
+
+    /**
+     * Initializes the value for the {@link Article#likes() likes} attribute.
+     * @param likes The value for likes 
+     * @return {@code this} builder for use in a chained invocation
+     */
+    @CanIgnoreReturnValue 
+    @JsonProperty
+    public final Builder likes(String likes) {
+      this.likes = Objects.requireNonNull(likes, "likes");
+      initBits &= ~INIT_BIT_LIKES;
+      return this;
+    }
+
+    /**
      * Builds a new {@link ImmutableArticle ImmutableArticle}.
      * @return An immutable instance of Article
-     * @throws java.lang.IllegalStateException if any required attributes are missing
+     * @throws IllegalStateException if any required attributes are missing
      */
     public ImmutableArticle build() {
       if (initBits != 0) {
         throw new IllegalStateException(formatRequiredAttributesMessage());
       }
-      return new ImmutableArticle(uuid, name, email, phone, aadharId, panId);
+      return new ImmutableArticle(uuid, firstName, lastName, email, phone, aadharId, panId, image, relation, description, likes);
     }
 
     private String formatRequiredAttributesMessage() {
       List<String> attributes = new ArrayList<>();
       if ((initBits & INIT_BIT_UUID) != 0) attributes.add("uuid");
-      if ((initBits & INIT_BIT_NAME) != 0) attributes.add("name");
+      if ((initBits & INIT_BIT_FIRST_NAME) != 0) attributes.add("firstName");
+      if ((initBits & INIT_BIT_LAST_NAME) != 0) attributes.add("lastName");
       if ((initBits & INIT_BIT_EMAIL) != 0) attributes.add("email");
       if ((initBits & INIT_BIT_AADHAR_ID) != 0) attributes.add("aadharId");
       if ((initBits & INIT_BIT_PAN_ID) != 0) attributes.add("panId");
+      if ((initBits & INIT_BIT_IMAGE) != 0) attributes.add("image");
+      if ((initBits & INIT_BIT_RELATION) != 0) attributes.add("relation");
+      if ((initBits & INIT_BIT_DESCRIPTION) != 0) attributes.add("description");
+      if ((initBits & INIT_BIT_LIKES) != 0) attributes.add("likes");
       return "Cannot build Article, some of required attributes are not set " + attributes;
     }
   }

@@ -20,11 +20,17 @@ CREATE TABLE user_details (
 
 CREATE TABLE article (
   uuid uuid DEFAULT uuid_generate_v4 (),
-  name text,
+  firstName text,
+  lastName text,
   email text,
   phone text,
   aadhar_id text,
-  pan_id text);
+  pan_id text,
+  image text,
+  relation text,
+  description text,
+  likes text
+);
 
 CREATE TABLE article_details (
     uuid uuid,

@@ -14,13 +14,32 @@ public interface Article {
     String uuid();
 
     @JsonProperty
-    String name();
+    String firstName();
+
+    @JsonProperty
+    String lastName();
+
     @JsonProperty
     String email();
+
     @JsonProperty
     Optional<String> phone();
+
     @JsonProperty
     String aadharId();
+
     @JsonProperty
     String panId();
+
+    @JsonProperty
+    String image();
+
+    @JsonProperty
+    String relation();
+
+    @JsonProperty
+    String description();
+
+    @JsonProperty
+    String likes();
 }

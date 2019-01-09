@@ -40,6 +40,6 @@ public interface ArticleDAO {
 //    @SqlQuery("select * from article where uuid = :uuid")
 //    Article findId(@Bind("uuid") String uuid);
 
-    @SqlQuery("select uuid, name, email, phone, aadhar_id, pan_id from article")
+    @SqlQuery("select uuid, firstName, lastName, email, phone, aadhar_id, pan_id, image, relation, description, likes from article")
     List<Article> getArticleList();
 }

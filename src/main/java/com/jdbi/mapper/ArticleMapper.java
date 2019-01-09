@@ -14,11 +14,16 @@ public class ArticleMapper implements RowMapper<Article> {
     public Article map(ResultSet rs, StatementContext ctx) throws SQLException {
         return ImmutableArticle.builder()
                 .uuid(rs.getString("uuid"))
-                .aadharId(rs.getString("aadhar_id"))
+                .firstName(rs.getString("firstName"))
+                .lastName(rs.getString("lastName"))
                 .email(rs.getString("email"))
-                .name(rs.getString("name"))
-                .panId(rs.getString("pan_id"))
                 .phone(rs.getString("phone"))
+                .aadharId(rs.getString("aadhar_id"))
+                .panId(rs.getString("pan_id"))
+                .image(rs.getString("image"))
+                .relation(rs.getString("relation"))
+                .description(rs.getString("description"))
+                .likes(rs.getString("likes"))
                 .build();
     }
 }
