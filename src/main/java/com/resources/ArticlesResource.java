@@ -6,9 +6,11 @@ import com.service.ArticleService;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
+import java.util.UUID;
 
 @Path("articles")
 @Produces(MediaType.APPLICATION_JSON)
@@ -21,4 +23,11 @@ public class ArticlesResource {
     public List<Article> getArticleList() {
         return articleService.getArticleList();
     }
+
+    @GET
+    @Path("{articleUuid}")
+    public Article getUser(@PathParam("articleUuid") UUID userUuid) {
+        return articleService.getArticleByUuid(userUuid);
+    }
 }
+

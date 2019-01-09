@@ -5,11 +5,11 @@ import com.model.Article;
 import org.jdbi.v3.sqlobject.config.RegisterRowMapper;
 import org.jdbi.v3.sqlobject.customizer.Bind;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
-import org.jdbi.v3.sqlobject.statement.SqlUpdate;
 import ru.vyarus.guicey.jdbi3.installer.repository.JdbiRepository;
 import ru.vyarus.guicey.jdbi3.tx.InTransaction;
 
 import java.util.List;
+import java.util.UUID;
 
 @JdbiRepository
 @InTransaction
@@ -40,6 +40,9 @@ public interface ArticleDAO {
 //    @SqlQuery("select * from article where uuid = :uuid")
 //    Article findId(@Bind("uuid") String uuid);
 
-    @SqlQuery("select uuid, firstName, lastName, email, phone, aadhar_id, pan_id, image, relation, description, likes from article")
+    @SqlQuery("select uuid, firstName, lastName, email, phone, aadhar_id as \"aadharId\", pan_id as \"panId\", image, relation, description, likes from article")
     List<Article> getArticleList();
+
+    @SqlQuery("select uuid, firstName, lastName, email, phone, aadhar_id as \"aadharId\", pan_id as \"panId\", image, relation, description, likes from article where uuid = :uuid")
+    Article getArticleByUuid(@Bind("uuid") UUID uuid);
 }
