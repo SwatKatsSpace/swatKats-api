@@ -10,7 +10,7 @@ import java.util.Optional;
 @JsonDeserialize
 public interface User {
     @JsonProperty
-    String uuid();
+    Optional<String> uuid();
     @JsonProperty
     String name();
     @JsonProperty

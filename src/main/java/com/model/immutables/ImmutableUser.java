@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.model.User;
+
 import com.google.common.base.MoreObjects;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import com.google.errorprone.annotations.Var;
@@ -16,8 +18,6 @@ import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 import javax.annotation.concurrent.Immutable;
 import javax.annotation.concurrent.NotThreadSafe;
-
-import com.model.User;
 import org.immutables.value.Generated;
 
 /**
@@ -33,7 +33,7 @@ import org.immutables.value.Generated;
 @Immutable
 @CheckReturnValue
 public final class ImmutableUser implements User {
-  private final String uuid;
+  private final @Nullable String uuid;
   private final String name;
   private final String email;
   private final @Nullable String phone;
@@ -42,7 +42,7 @@ public final class ImmutableUser implements User {
   private final String panId;
 
   private ImmutableUser(
-      String uuid,
+      @Nullable String uuid,
       String name,
       String email,
       @Nullable String phone,
@@ -63,8 +63,8 @@ public final class ImmutableUser implements User {
    */
   @JsonProperty
   @Override
-  public String uuid() {
-    return uuid;
+  public Optional<String> uuid() {
+    return Optional.ofNullable(uuid);
   }
 
   /**
@@ -122,15 +122,26 @@ public final class ImmutableUser implements User {
   }
 
   /**
-   * Copy the current immutable object by setting a value for the {@link User#uuid() uuid} attribute.
-   * An equals check used to prevent copying of the same value by returning {@code this}.
-   * @param value A new value for uuid
-   * @return A modified copy of the {@code this} object
+   * Copy the current immutable object by setting a <i>present</i> value for the optional {@link User#uuid() uuid} attribute.
+   * @param value The value for uuid
+   * @return A modified copy of {@code this} object
    */
   public final ImmutableUser withUuid(String value) {
-    String newValue = Objects.requireNonNull(value, "uuid");
-    if (this.uuid.equals(newValue)) return this;
+    @Nullable String newValue = Objects.requireNonNull(value, "uuid");
+    if (Objects.equals(this.uuid, newValue)) return this;
     return new ImmutableUser(newValue, this.name, this.email, this.phone, this.password, this.aadharId, this.panId);
+  }
+
+  /**
+   * Copy the current immutable object by setting an optional value for the {@link User#uuid() uuid} attribute.
+   * An equality check is used on inner nullable value to prevent copying of the same value by returning {@code this}.
+   * @param optional A value for uuid
+   * @return A modified copy of {@code this} object
+   */
+  public final ImmutableUser withUuid(Optional<String> optional) {
+    @Nullable String value = optional.orElse(null);
+    if (Objects.equals(this.uuid, value)) return this;
+    return new ImmutableUser(value, this.name, this.email, this.phone, this.password, this.aadharId, this.panId);
   }
 
   /**
@@ -228,7 +239,7 @@ public final class ImmutableUser implements User {
   }
 
   private boolean equalTo(ImmutableUser another) {
-    return uuid.equals(another.uuid)
+    return Objects.equals(uuid, another.uuid)
         && name.equals(another.name)
         && email.equals(another.email)
         && Objects.equals(phone, another.phone)
@@ -244,7 +255,7 @@ public final class ImmutableUser implements User {
   @Override
   public int hashCode() {
     @Var int h = 5381;
-    h += (h << 5) + uuid.hashCode();
+    h += (h << 5) + Objects.hashCode(uuid);
     h += (h << 5) + name.hashCode();
     h += (h << 5) + email.hashCode();
     h += (h << 5) + Objects.hashCode(phone);
@@ -282,7 +293,7 @@ public final class ImmutableUser implements User {
   @JsonDeserialize
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.NONE)
   static final class Json implements User {
-    @Nullable String uuid;
+    @Nullable Optional<String> uuid = Optional.empty();
     @Nullable String name;
     @Nullable String email;
     @Nullable Optional<String> phone = Optional.empty();
@@ -290,7 +301,7 @@ public final class ImmutableUser implements User {
     @Nullable String aadharId;
     @Nullable String panId;
     @JsonProperty
-    public void setUuid(String uuid) {
+    public void setUuid(Optional<String> uuid) {
       this.uuid = uuid;
     }
     @JsonProperty
@@ -318,7 +329,7 @@ public final class ImmutableUser implements User {
       this.panId = panId;
     }
     @Override
-    public String uuid() { throw new UnsupportedOperationException(); }
+    public Optional<String> uuid() { throw new UnsupportedOperationException(); }
     @Override
     public String name() { throw new UnsupportedOperationException(); }
     @Override
@@ -341,7 +352,7 @@ public final class ImmutableUser implements User {
   @Deprecated
   @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
   static ImmutableUser fromJson(Json json) {
-    ImmutableUser.Builder builder = ImmutableUser.builder();
+    Builder builder = ImmutableUser.builder();
     if (json.uuid != null) {
       builder.uuid(json.uuid);
     }
@@ -386,8 +397,8 @@ public final class ImmutableUser implements User {
    * Creates a builder for {@link ImmutableUser ImmutableUser}.
    * @return A new ImmutableUser builder
    */
-  public static ImmutableUser.Builder builder() {
-    return new ImmutableUser.Builder();
+  public static Builder builder() {
+    return new Builder();
   }
 
   /**
@@ -400,13 +411,12 @@ public final class ImmutableUser implements User {
   @Generated(from = "User", generator = "Immutables")
   @NotThreadSafe
   public static final class Builder {
-    private static final long INIT_BIT_UUID = 0x1L;
-    private static final long INIT_BIT_NAME = 0x2L;
-    private static final long INIT_BIT_EMAIL = 0x4L;
-    private static final long INIT_BIT_PASSWORD = 0x8L;
-    private static final long INIT_BIT_AADHAR_ID = 0x10L;
-    private static final long INIT_BIT_PAN_ID = 0x20L;
-    private long initBits = 0x3fL;
+    private static final long INIT_BIT_NAME = 0x1L;
+    private static final long INIT_BIT_EMAIL = 0x2L;
+    private static final long INIT_BIT_PASSWORD = 0x4L;
+    private static final long INIT_BIT_AADHAR_ID = 0x8L;
+    private static final long INIT_BIT_PAN_ID = 0x10L;
+    private long initBits = 0x1fL;
 
     private @Nullable String uuid;
     private @Nullable String name;
@@ -429,7 +439,10 @@ public final class ImmutableUser implements User {
     @CanIgnoreReturnValue 
     public final Builder from(User instance) {
       Objects.requireNonNull(instance, "instance");
-      uuid(instance.uuid());
+      Optional<String> uuidOptional = instance.uuid();
+      if (uuidOptional.isPresent()) {
+        uuid(uuidOptional);
+      }
       name(instance.name());
       email(instance.email());
       Optional<String> phoneOptional = instance.phone();
@@ -443,15 +456,25 @@ public final class ImmutableUser implements User {
     }
 
     /**
-     * Initializes the value for the {@link User#uuid() uuid} attribute.
-     * @param uuid The value for uuid 
+     * Initializes the optional value {@link User#uuid() uuid} to uuid.
+     * @param uuid The value for uuid
+     * @return {@code this} builder for chained invocation
+     */
+    @CanIgnoreReturnValue 
+    public final Builder uuid(String uuid) {
+      this.uuid = Objects.requireNonNull(uuid, "uuid");
+      return this;
+    }
+
+    /**
+     * Initializes the optional value {@link User#uuid() uuid} to uuid.
+     * @param uuid The value for uuid
      * @return {@code this} builder for use in a chained invocation
      */
     @CanIgnoreReturnValue 
     @JsonProperty
-    public final Builder uuid(String uuid) {
-      this.uuid = Objects.requireNonNull(uuid, "uuid");
-      initBits &= ~INIT_BIT_UUID;
+    public final Builder uuid(Optional<String> uuid) {
+      this.uuid = uuid.orElse(null);
       return this;
     }
 
@@ -546,7 +569,7 @@ public final class ImmutableUser implements User {
     /**
      * Builds a new {@link ImmutableUser ImmutableUser}.
      * @return An immutable instance of User
-     * @throws java.lang.IllegalStateException if any required attributes are missing
+     * @throws IllegalStateException if any required attributes are missing
      */
     public ImmutableUser build() {
       if (initBits != 0) {
@@ -557,7 +580,6 @@ public final class ImmutableUser implements User {
 
     private String formatRequiredAttributesMessage() {
       List<String> attributes = new ArrayList<>();
-      if ((initBits & INIT_BIT_UUID) != 0) attributes.add("uuid");
       if ((initBits & INIT_BIT_NAME) != 0) attributes.add("name");
       if ((initBits & INIT_BIT_EMAIL) != 0) attributes.add("email");
       if ((initBits & INIT_BIT_PASSWORD) != 0) attributes.add("password");

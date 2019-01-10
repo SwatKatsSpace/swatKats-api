@@ -2,11 +2,11 @@ package com.jdbi.dao;
 
 import com.jdbi.mapper.UserMapper;
 import com.model.User;
-import com.model.immutables.ImmutableUser;
 import org.jdbi.v3.sqlobject.config.RegisterRowMapper;
 import org.jdbi.v3.sqlobject.customizer.Bind;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
 import org.jdbi.v3.sqlobject.statement.SqlUpdate;
+
 import ru.vyarus.guicey.jdbi3.installer.repository.JdbiRepository;
 import ru.vyarus.guicey.jdbi3.tx.InTransaction;
 
@@ -56,4 +56,12 @@ public interface UserDAO {
 
     @SqlQuery("select uuid, name, email, phone, password, aadhar_id as \"aadharId\", pan_id as \"panId\" from users where aadhar_id = :aadharId")
     User getUserByAadharId(@Bind("aadharId") String aadharId);
+
+    @SqlUpdate("INSERT INTO users (name, email, phone, password, aadhar_id, pan_id) VALUES (:name, :email, :phone, :password, :aadharId, :panId) ")
+    void createUser(@Bind("name") String name,
+                    @Bind("email") String email,
+                    @Bind("phone") String phone,
+                    @Bind("password") String password,
+                    @Bind("aadharId") String aadharId,
+                    @Bind("panId") String panId);
 }
