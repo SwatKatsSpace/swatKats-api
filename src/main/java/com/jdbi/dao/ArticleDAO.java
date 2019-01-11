@@ -5,6 +5,8 @@ import com.model.Article;
 import org.jdbi.v3.sqlobject.config.RegisterRowMapper;
 import org.jdbi.v3.sqlobject.customizer.Bind;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
+import org.jdbi.v3.sqlobject.statement.SqlUpdate;
+
 import ru.vyarus.guicey.jdbi3.installer.repository.JdbiRepository;
 import ru.vyarus.guicey.jdbi3.tx.InTransaction;
 
@@ -44,9 +46,9 @@ public interface ArticleDAO {
     Article getArticleByUuid(@Bind("uuid") UUID uuid);
 
 
-    @SqlQuery("INSERT INTO article (firstName, lastName, email, phone, aadhar_id, pan_id, image, relation, description, likes) " +
+    @SqlUpdate("INSERT INTO article (firstName, lastName, email, phone, aadhar_id, pan_id, image, relation, description, likes) " +
             "VALUES (:firstName, :lastName, :email, :phone, :aadharId, :panId, :image, :relation, :discription, :likes)")
-    Integer addNewArticle(@Bind("firstName") String firstName,
+    void createArticle(@Bind("firstName") String firstName,
                           @Bind("lastName") String lastName,
                           @Bind("email") String email,
                           @Bind("phone") String phone,

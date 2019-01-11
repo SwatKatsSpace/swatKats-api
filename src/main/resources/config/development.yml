@@ -1,11 +1,13 @@
 database:
   driverClass: org.postgresql.Driver
   user: postgres
-  password: qwerty
+  password: root
   #password: root
+  #password: qwerty
   # or root
-  url: jdbc:postgresql://localhost:5433/swatkats
+  url: jdbc:postgresql://localhost:5432/swatkats
   # or 5432
+  # or 5433
   properties:
     charSet: UTF-8
   maxWaitForConnection: 1s

@@ -1,14 +1,20 @@
 package com.resources;
 
 import com.model.Article;
+import com.model.immutables.ImmutableArticle;
 import com.service.ArticleService;
 
-import javax.inject.Inject;
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 import java.util.List;
 import java.util.UUID;
+
+import javax.inject.Inject;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 @Path("articles")
 @Produces(MediaType.APPLICATION_JSON)
@@ -29,10 +35,10 @@ public class ArticlesResource {
     }
 
     @POST
-    public Response addArticles(Article article) {
-        Integer result = articleService.addNewArticle(article);
+    public Response createArticle(ImmutableArticle article) {
 
-        return result > 0 ? Response.ok(201).build() : Response.serverError().build();
+        articleService.createArticle(article);
+        return Response.ok(201).build();
     }
 }
 

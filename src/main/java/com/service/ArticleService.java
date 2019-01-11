@@ -2,12 +2,14 @@ package com.service;
 
 import com.jdbi.dao.ArticleDAO;
 import com.model.Article;
+
 import org.jvnet.hk2.annotations.Service;
+
+import java.util.List;
+import java.util.UUID;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import java.util.List;
-import java.util.UUID;
 
 @Service
 @Singleton
@@ -28,9 +30,9 @@ public class ArticleService {
         return article;
     }
 
-    public Integer addNewArticle(Article article) {
+    public void createArticle(Article article) {
 
-        return articleDAO.addNewArticle(
+        articleDAO.createArticle(
                 article.firstName(),
                 article.lastName(),
                 article.email(),
