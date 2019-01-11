@@ -27,4 +27,19 @@ public class ArticleService {
         Article article = articleDAO.getArticleByUuid(articleUuid);
         return article;
     }
+
+    public Integer addNewArticle(Article article) {
+
+        return articleDAO.addNewArticle(
+                article.firstName(),
+                article.lastName(),
+                article.email(),
+                article.phone().get(),
+                article.aadharId(),
+                article.panId(),
+                article.image(),
+                article.relation(),
+                article.description(),
+                article.likes());
+    }
 }

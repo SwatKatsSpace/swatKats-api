@@ -16,9 +16,6 @@ import java.util.UUID;
 @RegisterRowMapper(ArticleMapper.class)
 public interface ArticleDAO {
 
-//    @SqlUpdate("insert into article (name, email, phone, aadhar_id, pan_id) values (:name, :email, :phone, :aadharId, :panId)")
-//    Integer insert(@Bind("name") String name, @Bind("email") String email, @Bind("phone") String phone, @Bind("aadharId") String aadharId, @Bind("panId") String panId);
-//
 //    @SqlQuery("select * from article where name like :name")
 //    Article findByName(@Bind("name") String name);
 //
@@ -45,4 +42,18 @@ public interface ArticleDAO {
 
     @SqlQuery("select uuid, firstName, lastName, email, phone, aadhar_id as \"aadharId\", pan_id as \"panId\", image, relation, description, likes from article where uuid = :uuid")
     Article getArticleByUuid(@Bind("uuid") UUID uuid);
+
+
+    @SqlQuery("INSERT INTO article (firstName, lastName, email, phone, aadhar_id, pan_id, image, relation, description, likes) " +
+            "VALUES (:firstName, :lastName, :email, :phone, :aadharId, :panId, :image, :relation, :discription, :likes)")
+    Integer addNewArticle(@Bind("firstName") String firstName,
+                          @Bind("lastName") String lastName,
+                          @Bind("email") String email,
+                          @Bind("phone") String phone,
+                          @Bind("aadharId") String aadharId,
+                          @Bind("panId") String panId,
+                          @Bind("image") String image,
+                          @Bind("relation") String relation,
+                          @Bind("discription") String discription,
+                          @Bind("likes") String likes);
 }
