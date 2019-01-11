@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.model.Article;
+
 import com.google.common.base.MoreObjects;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import com.google.errorprone.annotations.Var;
@@ -16,8 +18,6 @@ import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 import javax.annotation.concurrent.Immutable;
 import javax.annotation.concurrent.NotThreadSafe;
-
-import com.model.Article;
 import org.immutables.value.Generated;
 
 /**
@@ -33,7 +33,7 @@ import org.immutables.value.Generated;
 @Immutable
 @CheckReturnValue
 public final class ImmutableArticle implements Article {
-  private final String uuid;
+  private final @Nullable String uuid;
   private final String firstName;
   private final String lastName;
   private final String email;
@@ -46,7 +46,7 @@ public final class ImmutableArticle implements Article {
   private final String likes;
 
   private ImmutableArticle(
-      String uuid,
+      @Nullable String uuid,
       String firstName,
       String lastName,
       String email,
@@ -75,8 +75,8 @@ public final class ImmutableArticle implements Article {
    */
   @JsonProperty
   @Override
-  public String uuid() {
-    return uuid;
+  public Optional<String> uuid() {
+    return Optional.ofNullable(uuid);
   }
 
   /**
@@ -170,16 +170,38 @@ public final class ImmutableArticle implements Article {
   }
 
   /**
-   * Copy the current immutable object by setting a value for the {@link Article#uuid() uuid} attribute.
-   * An equals check used to prevent copying of the same value by returning {@code this}.
-   * @param value A new value for uuid
-   * @return A modified copy of the {@code this} object
+   * Copy the current immutable object by setting a <i>present</i> value for the optional {@link Article#uuid() uuid} attribute.
+   * @param value The value for uuid
+   * @return A modified copy of {@code this} object
    */
   public final ImmutableArticle withUuid(String value) {
-    String newValue = Objects.requireNonNull(value, "uuid");
-    if (this.uuid.equals(newValue)) return this;
+    @Nullable String newValue = Objects.requireNonNull(value, "uuid");
+    if (Objects.equals(this.uuid, newValue)) return this;
     return new ImmutableArticle(
         newValue,
+        this.firstName,
+        this.lastName,
+        this.email,
+        this.phone,
+        this.aadharId,
+        this.panId,
+        this.image,
+        this.relation,
+        this.description,
+        this.likes);
+  }
+
+  /**
+   * Copy the current immutable object by setting an optional value for the {@link Article#uuid() uuid} attribute.
+   * An equality check is used on inner nullable value to prevent copying of the same value by returning {@code this}.
+   * @param optional A value for uuid
+   * @return A modified copy of {@code this} object
+   */
+  public final ImmutableArticle withUuid(Optional<String> optional) {
+    @Nullable String value = optional.orElse(null);
+    if (Objects.equals(this.uuid, value)) return this;
+    return new ImmutableArticle(
+        value,
         this.firstName,
         this.lastName,
         this.email,
@@ -456,7 +478,7 @@ public final class ImmutableArticle implements Article {
   }
 
   private boolean equalTo(ImmutableArticle another) {
-    return uuid.equals(another.uuid)
+    return Objects.equals(uuid, another.uuid)
         && firstName.equals(another.firstName)
         && lastName.equals(another.lastName)
         && email.equals(another.email)
@@ -476,7 +498,7 @@ public final class ImmutableArticle implements Article {
   @Override
   public int hashCode() {
     @Var int h = 5381;
-    h += (h << 5) + uuid.hashCode();
+    h += (h << 5) + Objects.hashCode(uuid);
     h += (h << 5) + firstName.hashCode();
     h += (h << 5) + lastName.hashCode();
     h += (h << 5) + email.hashCode();
@@ -522,7 +544,7 @@ public final class ImmutableArticle implements Article {
   @JsonDeserialize
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.NONE)
   static final class Json implements Article {
-    @Nullable String uuid;
+    @Nullable Optional<String> uuid = Optional.empty();
     @Nullable String firstName;
     @Nullable String lastName;
     @Nullable String email;
@@ -534,7 +556,7 @@ public final class ImmutableArticle implements Article {
     @Nullable String description;
     @Nullable String likes;
     @JsonProperty
-    public void setUuid(String uuid) {
+    public void setUuid(Optional<String> uuid) {
       this.uuid = uuid;
     }
     @JsonProperty
@@ -578,7 +600,7 @@ public final class ImmutableArticle implements Article {
       this.likes = likes;
     }
     @Override
-    public String uuid() { throw new UnsupportedOperationException(); }
+    public Optional<String> uuid() { throw new UnsupportedOperationException(); }
     @Override
     public String firstName() { throw new UnsupportedOperationException(); }
     @Override
@@ -680,17 +702,16 @@ public final class ImmutableArticle implements Article {
   @Generated(from = "Article", generator = "Immutables")
   @NotThreadSafe
   public static final class Builder {
-    private static final long INIT_BIT_UUID = 0x1L;
-    private static final long INIT_BIT_FIRST_NAME = 0x2L;
-    private static final long INIT_BIT_LAST_NAME = 0x4L;
-    private static final long INIT_BIT_EMAIL = 0x8L;
-    private static final long INIT_BIT_AADHAR_ID = 0x10L;
-    private static final long INIT_BIT_PAN_ID = 0x20L;
-    private static final long INIT_BIT_IMAGE = 0x40L;
-    private static final long INIT_BIT_RELATION = 0x80L;
-    private static final long INIT_BIT_DESCRIPTION = 0x100L;
-    private static final long INIT_BIT_LIKES = 0x200L;
-    private long initBits = 0x3ffL;
+    private static final long INIT_BIT_FIRST_NAME = 0x1L;
+    private static final long INIT_BIT_LAST_NAME = 0x2L;
+    private static final long INIT_BIT_EMAIL = 0x4L;
+    private static final long INIT_BIT_AADHAR_ID = 0x8L;
+    private static final long INIT_BIT_PAN_ID = 0x10L;
+    private static final long INIT_BIT_IMAGE = 0x20L;
+    private static final long INIT_BIT_RELATION = 0x40L;
+    private static final long INIT_BIT_DESCRIPTION = 0x80L;
+    private static final long INIT_BIT_LIKES = 0x100L;
+    private long initBits = 0x1ffL;
 
     private @Nullable String uuid;
     private @Nullable String firstName;
@@ -717,7 +738,10 @@ public final class ImmutableArticle implements Article {
     @CanIgnoreReturnValue 
     public final Builder from(Article instance) {
       Objects.requireNonNull(instance, "instance");
-      uuid(instance.uuid());
+      Optional<String> uuidOptional = instance.uuid();
+      if (uuidOptional.isPresent()) {
+        uuid(uuidOptional);
+      }
       firstName(instance.firstName());
       lastName(instance.lastName());
       email(instance.email());
@@ -735,15 +759,25 @@ public final class ImmutableArticle implements Article {
     }
 
     /**
-     * Initializes the value for the {@link Article#uuid() uuid} attribute.
-     * @param uuid The value for uuid 
+     * Initializes the optional value {@link Article#uuid() uuid} to uuid.
+     * @param uuid The value for uuid
+     * @return {@code this} builder for chained invocation
+     */
+    @CanIgnoreReturnValue 
+    public final Builder uuid(String uuid) {
+      this.uuid = Objects.requireNonNull(uuid, "uuid");
+      return this;
+    }
+
+    /**
+     * Initializes the optional value {@link Article#uuid() uuid} to uuid.
+     * @param uuid The value for uuid
      * @return {@code this} builder for use in a chained invocation
      */
     @CanIgnoreReturnValue 
     @JsonProperty
-    public final Builder uuid(String uuid) {
-      this.uuid = Objects.requireNonNull(uuid, "uuid");
-      initBits &= ~INIT_BIT_UUID;
+    public final Builder uuid(Optional<String> uuid) {
+      this.uuid = uuid.orElse(null);
       return this;
     }
 
@@ -901,7 +935,6 @@ public final class ImmutableArticle implements Article {
 
     private String formatRequiredAttributesMessage() {
       List<String> attributes = new ArrayList<>();
-      if ((initBits & INIT_BIT_UUID) != 0) attributes.add("uuid");
       if ((initBits & INIT_BIT_FIRST_NAME) != 0) attributes.add("firstName");
       if ((initBits & INIT_BIT_LAST_NAME) != 0) attributes.add("lastName");
       if ((initBits & INIT_BIT_EMAIL) != 0) attributes.add("email");

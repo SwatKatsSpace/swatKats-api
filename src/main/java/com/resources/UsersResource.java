@@ -37,7 +37,7 @@ public class UsersResource {
         return userService.getUserByUuid(userUuid.get());
     }
 
-    //TODO: this has to go to seperate resource
+    //TODO: this has to go to separate resource
     @GET
     @Path("user")
     public User getUser(@QueryParam("email") Optional<String> email,

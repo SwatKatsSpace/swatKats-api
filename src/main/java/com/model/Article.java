@@ -7,11 +7,11 @@ import org.immutables.value.Value;
 
 import java.util.Optional;
 
-//@Value.Immutable
+@Value.Immutable
 @JsonDeserialize
 public interface Article {
     @JsonProperty
-    String uuid();
+    Optional<String> uuid();
 
     @JsonProperty
     String firstName();
