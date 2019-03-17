@@ -1,11 +1,15 @@
 database:
   driverClass: org.postgresql.Driver
   user: postgres
-  password: root
+  password: qwerty
   #password: root
   #password: qwerty
   # or root
-  url: jdbc:postgresql://localhost:5432/swatkats
+
+  #open -a Google\ Chrome --args --disable-web-security --user-data-dir
+  #open -a Google\ Chrome --args --enable-web-security --user-data-dir
+
+  url: jdbc:postgresql://localhost:5433/swatkats
   # or 5432
   # or 5433
   properties:

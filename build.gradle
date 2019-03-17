@@ -30,6 +30,9 @@ dependencies {
 
     compile group: 'javax.activation', name: 'activation', version: javax_activation
 
+    compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
+
+
 }
 
 mainClassName = "com.SwatkatsApplication"

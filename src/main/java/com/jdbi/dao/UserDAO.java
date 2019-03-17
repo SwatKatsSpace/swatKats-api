@@ -57,6 +57,9 @@ public interface UserDAO {
     @SqlQuery("select uuid, name, email, phone, password, aadhar_id as \"aadharId\", pan_id as \"panId\" from users where aadhar_id = :aadharId")
     User getUserByAadharId(@Bind("aadharId") String aadharId);
 
+    @SqlQuery("select uuid, name, email, phone, password, aadhar_id as \"aadharId\", pan_id as \"panId\" from users where email = :user or phone = :user and password := password")
+    User getUserByPhoneOREmailAndPassword(@Bind("user") String user, @Bind("password") String password);
+
     @SqlUpdate("INSERT INTO users (name, email, phone, password, aadhar_id, pan_id) VALUES (:name, :email, :phone, :password, :aadharId, :panId) ")
     void createUser(@Bind("name") String name,
                     @Bind("email") String email,
