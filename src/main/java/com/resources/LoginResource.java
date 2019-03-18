@@ -10,6 +10,7 @@ import com.service.LoginService;
 import com.service.UserService;
 
 import javax.inject.Inject;
+import javax.ws.rs.BadRequestException;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -35,11 +36,16 @@ public class LoginResource {
     public Response login(ImmutableUser user) {
         try {
             User loggedInUser = loginService.getUserByUserNameAndPassword(user);
-            String jwToken = JWTAuth.generateJWT(loggedInUser.uuid().get(), "SWATKATS", loggedInUser.email(), new Date().getTime());
-            ImmutableGenericResponse immutableGenericResponse = ImmutableGenericResponse.builder().body(loggedInUser).token(jwToken).build();
-            return Response.ok(immutableGenericResponse).build();
+            if(loggedInUser != null) {
+                String jwToken = JWTAuth.generateJWT(loggedInUser.uuid().get(), "SWATKATS", loggedInUser.email(), new Date().getTime());
+                ImmutableGenericResponse immutableGenericResponse = ImmutableGenericResponse.builder().body(loggedInUser).token(jwToken).build();
+                return Response.ok(immutableGenericResponse).build();
+            } else {
+                throw new BadRequestException();
+            }
+
         } catch (Exception e) {
-            return Response.ok(400).build();
+            throw new BadRequestException();
         }
 
     }
