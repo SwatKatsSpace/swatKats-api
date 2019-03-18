@@ -1,7 +1,10 @@
 package com.resources;
 
+import com.auth.JWTAuth;
+import com.model.GenericResponse;
 import com.model.User;
 import com.model.immutables.ImmutableArticle;
+import com.model.immutables.ImmutableGenericResponse;
 import com.model.immutables.ImmutableUser;
 import com.service.LoginService;
 import com.service.UserService;
@@ -32,7 +35,9 @@ public class LoginResource {
     public Response login(ImmutableUser user) {
         try {
             User loggedInUser = loginService.getUserByUserNameAndPassword(user);
-            return Response.ok(loggedInUser).build();
+            String jwToken = JWTAuth.generateJWT(loggedInUser.uuid().get(), "SWATKATS", loggedInUser.email(), new Date().getTime());
+            ImmutableGenericResponse immutableGenericResponse = ImmutableGenericResponse.builder().body(loggedInUser).token(jwToken).build();
+            return Response.ok(immutableGenericResponse).build();
         } catch (Exception e) {
             return Response.ok(400).build();
         }
