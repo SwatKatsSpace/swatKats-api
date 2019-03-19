@@ -29,8 +29,5 @@ public class RequestInterceptor implements ContainerRequestFilter {
         } else {
             System.out.println("login request extemption");
         }
-
-
-
     }
 }

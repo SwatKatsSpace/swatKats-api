@@ -17,10 +17,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.*;
 import java.lang.annotation.Annotation;
 import java.net.URI;
-import java.util.Date;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @Path("login")
 @Produces(MediaType.APPLICATION_JSON)
@@ -37,7 +34,11 @@ public class LoginResource {
         try {
             User loggedInUser = loginService.getUserByUserNameAndPassword(user);
             if(loggedInUser != null) {
-                String jwToken = JWTAuth.generateJWT(loggedInUser.uuid().get(), "SWATKATS", loggedInUser.email(), new Date().getTime());
+                Calendar tokenExpiryDateTime = Calendar.getInstance();
+                tokenExpiryDateTime.setTime(new Date());
+                tokenExpiryDateTime.set(Calendar.MINUTE, 30);
+                long tokenExpiry = tokenExpiryDateTime.getTimeInMillis();
+                String jwToken = JWTAuth.generateJWT(loggedInUser.uuid().get(), "SWATKATS", loggedInUser.email(), tokenExpiry);
                 ImmutableGenericResponse immutableGenericResponse = ImmutableGenericResponse.builder().body(loggedInUser).token(jwToken).build();
                 return Response.ok(immutableGenericResponse).build();
             } else {
