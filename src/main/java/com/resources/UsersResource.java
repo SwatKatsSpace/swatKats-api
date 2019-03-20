@@ -37,6 +37,12 @@ public class UsersResource {
         return userService.getUserByUuid(userUuid.get());
     }
 
+    @GET
+    @Path("/all")
+    public List<User> getAllUser() {
+        return userService.getUserList();
+    }
+
     //TODO: this has to go to separate resource
     @GET
     @Path("user")

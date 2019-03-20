@@ -8,6 +8,8 @@ import com.model.immutables.ImmutableGenericResponse;
 import com.model.immutables.ImmutableUser;
 import com.service.LoginService;
 import com.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import javax.ws.rs.BadRequestException;
@@ -23,14 +25,18 @@ import java.util.*;
 @Produces(MediaType.APPLICATION_JSON)
 public class LoginResource {
 
+    private static final Logger logger = LoggerFactory.getLogger(LoginResource.class);
+
     @Inject
     private UserService userService;
 
     @Inject
     private LoginService loginService;
 
+
     @POST
     public Response login(ImmutableUser user) {
+        logger.info("User Resource");
         try {
             User loggedInUser = loginService.getUserByUserNameAndPassword(user);
             if(loggedInUser != null) {
@@ -42,10 +48,12 @@ public class LoginResource {
                 ImmutableGenericResponse immutableGenericResponse = ImmutableGenericResponse.builder().body(loggedInUser).token(jwToken).build();
                 return Response.ok(immutableGenericResponse).build();
             } else {
+                logger.warn("No user found " + loggedInUser);
                 throw new BadRequestException();
             }
 
         } catch (Exception e) {
+            e.printStackTrace();
             throw new BadRequestException();
         }
 

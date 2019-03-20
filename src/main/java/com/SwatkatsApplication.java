@@ -1,5 +1,6 @@
 package com;
 
+import com.service.interceptor.RequestInterceptor;
 import com.service.interceptor.ResponseInterceptor;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
@@ -25,5 +26,6 @@ public class SwatkatsApplication extends Application<SwatkatsConfiguration> {
     @Override
     public void run(SwatkatsConfiguration swatkatsConfiguration, Environment environment) throws Exception {
         environment.jersey().getResourceConfig().register(new ResponseInterceptor());
+        environment.jersey().getResourceConfig().register(new RequestInterceptor());
     }
 }

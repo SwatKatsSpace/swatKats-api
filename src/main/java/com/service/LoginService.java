@@ -22,7 +22,5 @@ public class LoginService {
         } else {
             throw new Exception("Invalid input");
         }
-
-
     }
 }
