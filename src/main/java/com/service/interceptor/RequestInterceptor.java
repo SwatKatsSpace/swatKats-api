@@ -37,7 +37,7 @@ public class RequestInterceptor implements ContainerRequestFilter {
             try {
                 Claims claims = JWTAuth.decodeJwt(authorizationToken);
                 if(claims != null) {
-                    logger.info(claims.getId() + " : " + claims.getIssuer() + " : " + claims.getSubject());
+                    logger.info(claims.getId() + " : " + claims.getIssuer() + " : " + claims.getSubject())  ;
                     logger.info("Authorization Success");
                 }
             } catch (Exception e) {
