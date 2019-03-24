@@ -26,12 +26,13 @@ public class RequestInterceptor implements ContainerRequestFilter {
     private static final Logger logger = LoggerFactory.getLogger(RequestInterceptor.class);
 
     private  final String LOGIN_REQUEST_URI = "login";
+    private final String ARTICLE_VIEW_URI = "articles";
 
     @Override
     public void filter(ContainerRequestContext requestContext) throws IOException {
         logger.info("Request Inteceptor");
         logger.info(requestContext.getUriInfo().getPath());
-        if(!requestContext.getUriInfo().getPath().contains(LOGIN_REQUEST_URI)) {
+        if(!requestContext.getUriInfo().getPath().contains(LOGIN_REQUEST_URI) && !requestContext.getUriInfo().getPath().contains(ARTICLE_VIEW_URI)) {
             String authorizationToken = requestContext.getHeaderString("Authorization");
             logger.info(authorizationToken);
             try {
@@ -45,7 +46,10 @@ public class RequestInterceptor implements ContainerRequestFilter {
                 throw new BadRequestException("Authorization Failed");
             }
         } else {
-            logger.info("login request extemption");
+            if(requestContext.getUriInfo().getPath().contains(LOGIN_REQUEST_URI))
+                logger.info("login request extemption");
+            else if(requestContext.getUriInfo().getPath().contains(ARTICLE_VIEW_URI))
+                logger.info("article request extemption");
         }
     }
 }
