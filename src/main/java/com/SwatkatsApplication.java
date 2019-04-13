@@ -18,13 +18,12 @@ public class SwatkatsApplication extends Application<SwatkatsConfiguration> {
     public void initialize(Bootstrap<SwatkatsConfiguration> bootstrap) {
         bootstrap.addBundle(GuiceBundle.builder()
                 .enableAutoConfig("com.resources", "com.jdbi.dao", "com.jdbi.mapper")
-                .bundles(JdbiBundle
-                        .<SwatkatsConfiguration>forDatabase((conf, env) -> conf.getDatabase()))
+                .bundles(JdbiBundle.<SwatkatsConfiguration>forDatabase((conf, env) -> conf.getDatabase()))
                 .build());
     }
 
     @Override
-    public void run(SwatkatsConfiguration swatkatsConfiguration, Environment environment) throws Exception {
+    public void run(SwatkatsConfiguration swatkatsConfiguration, Environment environment) {
         environment.jersey().getResourceConfig().register(new ResponseInterceptor());
         environment.jersey().getResourceConfig().register(new RequestInterceptor());
     }

@@ -10,8 +10,7 @@ import java.io.IOException;
 public class ResponseInterceptor implements ContainerResponseFilter {
 
     @Override
-    public void filter(ContainerRequestContext requestContext,
-                       ContainerResponseContext responseContext) throws IOException {
+    public void filter(ContainerRequestContext requestContext, ContainerResponseContext responseContext) throws IOException {
         responseContext.getHeaders().add("access-control-allow-origin", "*");
         responseContext.getHeaders().add("access-control-allow-methods", "DELETE, GET, HEAD, OPTIONS, POST, PUT");
         responseContext.getHeaders().add("Access-control-allow-headers", "access-control-allow-origin, Origin, X-Requested-With, Content-Type, Accept, Authorization, Access-Control-Allow-Headers, CORELATION_ID");

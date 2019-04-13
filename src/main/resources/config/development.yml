@@ -9,7 +9,7 @@ database:
   #open -a Google\ Chrome --args --disable-web-security --user-data-dir
   #open -a Google\ Chrome --args --enable-web-security --user-data-dir
 
-  url: jdbc:postgresql://localhost:5433/swatkats
+  url: jdbc:postgresql://localhost:5432/swatkats
   # or 5432
   # or 5433
   properties:

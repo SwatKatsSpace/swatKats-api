@@ -7,7 +7,7 @@ import org.immutables.value.Value;
 
 import java.util.Optional;
 
-@Value.Immutable
+//@Value.Immutable
 @JsonDeserialize
 public interface Article {
     @JsonProperty

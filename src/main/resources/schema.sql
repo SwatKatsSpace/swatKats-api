@@ -54,3 +54,8 @@ CREATE TABLE article_finance_details (
     ifsc_code text,
     bank_name text,
     name_on_account text);
+
+CREATE TABLE logged_in_user (
+    uuid uuid PRIMARY KEY,
+    jw_token text,
+);
